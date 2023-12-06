@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 // Routes
 app.get("/", (req, res) => {
   res.json({
-    message: "Welcome to Donc Alojamiento API",
+    message: "Welcome to DonC Alojamiento API",
   });
 });
 app.use("/api", propiedadesRoutes);

@@ -1,25 +1,22 @@
 import { Router } from "express";
+import {
+  getPropiedades,
+  createPropiedad,
+  updatePropiedad,
+  deletePropiedad,
+  getPropiedad,
+} from "../controllers/propiedades.controller.js";
 
 const router = Router();
 
-router.get("/propiedades", (req, res) => {
-  res.send("Obteniendo propiedades");
-});
+router.get("/propiedades", getPropiedades);
 
-router.get("/propiedades/:id", (req, res) => {
-  res.send("Obteniendo propiedad");
-});
+router.get("/propiedades/:id", getPropiedad);
 
-router.post("/propiedades", (req, res) => {
-  res.send("Creando propiedad!");
-});
+router.post("/propiedades", createPropiedad);
 
-router.put("/propiedades/:id", (req, res) => {
-  res.send("Actualizando propiedad!");
-});
+router.put("/propiedades/:id", updatePropiedad);
 
-router.delete("/propiedades/:id", (req, res) => {
-  res.send("Eliminando propiedad!");
-});
+router.delete("/propiedades/:id", deletePropiedad);
 
 export default router;
