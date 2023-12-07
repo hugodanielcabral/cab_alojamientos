@@ -1,11 +1,16 @@
 import express from "express";
 import morgan from "morgan";
+import cookieParser from "cookie-parser";
+
 import propiedadesRoutes from "./routes/propiedades.routes.js";
 import authRoutes from "./routes/auth.routes.js";
+import reservasRoutes from "./routes/reservas.routes.js";
+
 const app = express();
 
 // Middlewares
 app.use(morgan("dev"));
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -16,6 +21,7 @@ app.get("/", (req, res) => {
   });
 });
 app.use("/api", propiedadesRoutes);
+app.use("/api", reservasRoutes);
 app.use("/api", authRoutes);
 
 // Error Handling

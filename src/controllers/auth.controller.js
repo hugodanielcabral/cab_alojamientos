@@ -1,15 +1,103 @@
-export const signin = (req, res) => {
-  res.send("Signin");
+import { pool } from "../db.js";
+import bcrypt from "bcrypt";
+import { createAccessToken } from "../libs/jwt.js";
+import md5 from "md5";
+export const signin = async (req, res) => {
+  const { correo, contrasena } = req.body;
+
+  try {
+    const result = await pool.query(
+      "SELECT * FROM usuarios WHERE correo = $1",
+      [correo]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(401).json({
+        message: "Credenciales incorrectas",
+      });
+    }
+
+    const validContrasena = await bcrypt.compare(
+      contrasena,
+      result.rows[0].contrasena
+    );
+
+    if (!validContrasena) {
+      return res.status(401).json({
+        message: "Contraseña incorrecta",
+      });
+    }
+
+    const token = await createAccessToken({
+      id: result.rows[0].usuario_id,
+    });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      sameSite: "none",
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
+
+    return res.json(result.rows[0]);
+  } catch (error) {
+    return res.status(500).json({
+      message: "Ocurrio un error",
+      error: error.message,
+    });
+  }
 };
 
-export const signup = (req, res) => {
-  res.send("Signup");
+export const signup = async (req, res) => {
+  const { nombre, correo, contrasena, pais, rol } = req.body;
+
+  try {
+    const hashedContrasena = await bcrypt.hash(contrasena, 10);
+    const gravatar = `https://gravatar.com/avatar/${md5(correo)}?d=identicon`;
+
+    const result = await pool.query(
+      "INSERT INTO usuarios ( nombre, correo, contrasena, pais, rol, avatar) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+      [nombre, correo, hashedContrasena, pais, rol, gravatar]
+    );
+
+    const token = await createAccessToken({
+      id: result.rows[0].usuario_id,
+    });
+
+    console.log(result.rows[0].usuario_id);
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      sameSite: "none",
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
+
+    return res.json(result.rows[0]);
+  } catch (error) {
+    return res.status(500).json({
+      message: "Ocurrio un error",
+      error: error.message,
+    });
+  }
 };
 
 export const signout = (req, res) => {
-  res.send("Signout");
+  // Elimina la cookie de headers
+  res.clearCookie("token");
+  res.sendStatus(200);
 };
 
-export const profile = (req, res) => {
-  res.send("Perfil de usuario");
+export const profile = async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM usuarios WHERE usuario_id = $1",
+      [req.userId]
+    );
+
+    return res.json(result.rows[0]);
+  } catch (error) {
+    return res.status(500).json({
+      message: "Ocurrio un error",
+      error: error.message,
+    });
+  }
 };
