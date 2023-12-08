@@ -4,6 +4,7 @@ import { createAccessToken } from "../libs/jwt.js";
 import md5 from "md5";
 export const signin = async (req, res) => {
   const { correo, contrasena } = req.body;
+  console.log(req.body);
 
   try {
     const result = await pool.query(
@@ -35,6 +36,7 @@ export const signin = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       sameSite: "none",
+      secure: true,
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 

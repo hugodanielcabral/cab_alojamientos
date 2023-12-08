@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
-import { Button, Card, Input, Label } from "../../../UI/index.js";
-import { LiaEyeSolid, LiaEyeSlashSolid } from "react-icons/lia";
-import axios from "axios";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../../../context/AuthContext.jsx";
+import { Button, Card, Input, Label } from "../../../UI";
+import { LiaEyeSolid, LiaEyeSlashSolid } from "react-icons/lia";
+import { useAuth } from "../../../../context/AuthContext";
 
-export const RegisterForm = () => {
-  const { signup } = useAuth();
+export const LoginForm = () => {
+  const { signin } = useAuth();
   const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
@@ -22,63 +21,23 @@ export const RegisterForm = () => {
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const nombre = "dani";
-  const pais = "Argentina";
-  const rol = "ADMIN";
-
-  const createUser = async () => {
-    const response = axios.post("http://localhost:3000/api/signup", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: {
-        nombre: nombre,
-        correo: formValues.email,
-        contrasena: formValues.contrasena,
-        pais: pais,
-        rol: rol,
-      },
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const data = {
+      correo: formValues.email,
+      contrasena: formValues.contrasena,
+    };
     try {
-      const data = {
-        nombre: nombre,
-        correo: formValues.email,
-        contrasena: formValues.contrasena,
-        pais: pais,
-        rol: rol,
-      };
-
-      await signup(data);
+      await signin(data);
       navigate("/");
-
-      /* const response = await fetch("http://localhost:3000/api/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": true,
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          nombre: nombre,
-          correo: formValues.email,
-          contrasena: formValues.contrasena,
-          pais: pais,
-          rol: rol,
-        }),
-      }); */
     } catch (error) {
       console.log(error);
     }
   };
-
   return (
     <div className="h-[calc(100vh-64px)] flex justify-center items-center">
       <Card>
-        <h1>Formulario</h1>
+        <h1>Login</h1>
         <form onSubmit={handleSubmit}>
           <Label htmlFor="email">Correo</Label>
           <Input
@@ -110,11 +69,11 @@ export const RegisterForm = () => {
               {!showContrasena ? <LiaEyeSolid /> : <LiaEyeSlashSolid />}
             </Button>
           </div>
-          <Button type="submit">Registrarse</Button>
+          <Button type="submit">Ingresar</Button>
           <div className="flex justify-between my-4">
-            <p>Ya tienes una cuenta?</p>
-            <Link to="/login" className="font-bold underline">
-              Inicia sesion
+            <p>¿No tienes una cuenta?</p>
+            <Link to="/register" className="font-bold underline">
+              Registrate
             </Link>
           </div>
         </form>
