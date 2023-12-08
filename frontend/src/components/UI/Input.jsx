@@ -4,7 +4,7 @@ export const Input = (props) => {
   return (
     <input
       type="text"
-      className="bg-slate-500-800 p-2 block my-2 w-full text-black"
+      className="block w-full p-2 my-2 text-black bg-slate-500-800"
       {...props}
     />
   );

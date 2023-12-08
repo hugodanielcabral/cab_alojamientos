@@ -49,6 +49,8 @@ export const signin = async (req, res) => {
 
 export const signup = async (req, res) => {
   const { nombre, correo, contrasena, pais, rol } = req.body;
+  console.log(req.body);
+  console.log(nombre, correo, contrasena, pais, rol);
 
   try {
     const hashedContrasena = await bcrypt.hash(contrasena, 10);
@@ -66,8 +68,9 @@ export const signup = async (req, res) => {
     console.log(result.rows[0].usuario_id);
 
     res.cookie("token", token, {
-      httpOnly: true,
+      // httpOnly: true,
       sameSite: "none",
+      secure: true,
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 

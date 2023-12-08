@@ -1,10 +1,11 @@
-export const Button = ({ children }, props) => {
+export const Button = (props) => {
+  console.log(props);
   return (
     <button
-      className="py-2 px-4 bg-green-400 text-black rounded hover:bg-green-500 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+      className="px-4 py-2 font-medium text-black bg-green-400 rounded hover:bg-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
       {...props}
     >
-      {children}
+      {props.children}
     </button>
   );
 };

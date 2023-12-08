@@ -1,6 +1,5 @@
 import React from "react";
 
 export const Card = ({ children }) => {
-  console.log(children);
-  return <div className="bg-zinc-800 p-14 rounded-md">{children}</div>;
+  return <div className="rounded-md bg-zinc-800 p-14">{children}</div>;
 };

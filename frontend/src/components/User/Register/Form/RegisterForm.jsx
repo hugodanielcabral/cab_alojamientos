@@ -1,20 +1,75 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Card, Input, Label } from "../../../UI/index.js";
+import { LiaEyeSolid, LiaEyeSlashSolid } from "react-icons/lia";
+import axios from "axios";
 
 export const RegisterForm = () => {
   const [formValues, setFormValues] = useState({
     email: "",
     contrasena: "",
   });
+  const [showContrasena, setShowContrasena] = useState(false);
+
+  const toggleContrasena = () => setShowContrasena(!showContrasena);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const nombre = "dani";
+  const pais = "Argentina";
+  const rol = "ADMIN";
+
+  const createUser = async () => {
+    const response = axios.post("http://localhost:3000/api/signup", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        nombre: nombre,
+        correo: formValues.email,
+        contrasena: formValues.contrasena,
+        pais: pais,
+        rol: rol,
+      },
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Formulario enviado");
+    try {
+      const data = {
+        nombre: nombre,
+        correo: formValues.email,
+        contrasena: formValues.contrasena,
+        pais: pais,
+        rol: rol,
+      };
+      const response = await axios.post(
+        "http://localhost:3000/api/signup",
+        data,
+        { withCredentials: true }
+      );
+
+      /* const response = await fetch("http://localhost:3000/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": true,
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          nombre: nombre,
+          correo: formValues.email,
+          contrasena: formValues.contrasena,
+          pais: pais,
+          rol: rol,
+        }),
+      }); */
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -30,16 +85,28 @@ export const RegisterForm = () => {
             onChange={handleChange}
             value={formValues.email}
             placeholder="Ingresa tu correo"
+            required
           />
           <Label htmlFor="contrasena">Contraseña</Label>
-          <Input
-            type="password"
-            name="contrasena"
-            id="contrasena"
-            onChange={handleChange}
-            value={formValues.contrasena}
-            placeholder="Ingresa tu contraseña"
-          />
+          <div className="relative">
+            <Input
+              type={!showContrasena ? "password" : "text"}
+              name="contrasena"
+              id="contrasena"
+              onChange={handleChange}
+              value={formValues.contrasena}
+              placeholder="Ingresa tu contraseña"
+              required
+            />
+
+            <Button
+              className="absolute inset-y-0 right-0 flex items-center pr-3 text-2xl text-black"
+              type="button"
+              onClick={toggleContrasena}
+            >
+              {!showContrasena ? <LiaEyeSolid /> : <LiaEyeSlashSolid />}
+            </Button>
+          </div>
           <Button type="submit">Enviar</Button>
         </form>
       </Card>
