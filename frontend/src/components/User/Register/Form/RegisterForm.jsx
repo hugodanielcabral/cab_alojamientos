@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../context/AuthContext.jsx";
 
 export const RegisterForm = () => {
-  const { signup } = useAuth();
+  const { signup, errors } = useAuth();
   const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
@@ -51,10 +51,8 @@ export const RegisterForm = () => {
         pais: pais,
         rol: rol,
       };
-
-      await signup(data);
-      navigate("/");
-
+      const response = await signup(data);
+      if (response.status === 200) navigate("/login");
       /* const response = await fetch("http://localhost:3000/api/signup", {
         method: "POST",
         headers: {
@@ -78,6 +76,13 @@ export const RegisterForm = () => {
   return (
     <div className="h-[calc(100vh-64px)] flex justify-center items-center">
       <Card>
+        {errors && (
+          <div className="text-red-500">
+            {errors.map((error, index) => (
+              <p key={index}>{error.msg}</p>
+            ))}
+          </div>
+        )}
         <h1>Formulario</h1>
         <form onSubmit={handleSubmit}>
           <Label htmlFor="email">Correo</Label>
