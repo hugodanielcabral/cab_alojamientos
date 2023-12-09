@@ -5,4 +5,12 @@
 body {
   background-color: rgb(42, 37, 37);
   color: white;
+  /* Para que el footer este siempre abajo */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  margin-top: auto;
 }

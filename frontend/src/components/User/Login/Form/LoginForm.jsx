@@ -36,7 +36,7 @@ export const LoginForm = () => {
     }
   };
   return (
-    <div className="h-[calc(100vh-64px)] flex justify-center items-center">
+    <div className="relative flex items-center justify-center">
       <Card>
         {errors &&
           errors.map((error, index) => {

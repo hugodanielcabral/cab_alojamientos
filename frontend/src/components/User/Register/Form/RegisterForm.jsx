@@ -74,7 +74,7 @@ export const RegisterForm = () => {
   };
 
   return (
-    <div className="h-[calc(100vh-64px)] flex justify-center items-center">
+    <div className="flex items-center justify-center">
       <Card>
         {errors && (
           <div className="text-red-500">
