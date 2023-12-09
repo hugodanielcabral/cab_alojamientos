@@ -5,7 +5,7 @@ import { LiaEyeSolid, LiaEyeSlashSolid } from "react-icons/lia";
 import { useAuth } from "../../../../context/AuthContext";
 
 export const LoginForm = () => {
-  const { signin } = useAuth();
+  const { signin, errors } = useAuth();
   const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
@@ -28,15 +28,24 @@ export const LoginForm = () => {
       contrasena: formValues.contrasena,
     };
     try {
-      await signin(data);
-      navigate("/");
+      const user = await signin(data);
+
+      if (user) navigate("/");
     } catch (error) {
       console.log(error);
     }
   };
   return (
-    <div className="h-[calc(100vh-64px)] flex justify-center items-center">
+    <div className="relative flex items-center justify-center">
       <Card>
+        {errors &&
+          errors.map((error, index) => {
+            return (
+              <p key={index} className="font-bold text-center text-red-600">
+                {error.msg}
+              </p>
+            );
+          })}
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
           <Label htmlFor="email">Correo</Label>

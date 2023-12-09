@@ -1,5 +1,7 @@
-import { createContext, useState, useContext } from "react";
-import axios from "axios";
+import { createContext, useState, useContext, useEffect } from "react";
+import axios from "../api/axios.js";
+import Cookie from "js-cookie";
+
 export const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -16,29 +18,55 @@ export const AuthProvider = ({ children }) => {
   const [errors, setErrors] = useState(null);
 
   const signup = async (data) => {
-    const response = await axios.post(
-      "http://localhost:3000/api/signup",
-      data,
-      { withCredentials: true }
-    );
-    console.log(response);
-    setUser(response.data);
+    try {
+      const response = await axios.post("/signup", data);
+      setUser(response.data);
+
+      return response;
+    } catch (error) {
+      setErrors(error.response.data.errors);
+      console.log(error.response.data.errors);
+    }
   };
 
   const signin = async (data) => {
-    const response = await axios.post(
-      "http://localhost:3000/api/signin",
-      data,
-      {
-        withCredentials: true,
-      }
-    );
-    setUser(response.data);
-    setIsAuth(true);
+    try {
+      const response = await axios.post("/signin", data);
+      setUser(response.data);
+      setIsAuth(true);
+      return response.data;
+    } catch (error) {
+      setErrors(error.response.data.errors);
+      console.log(error.response.data.errors);
+    }
   };
 
+  const signout = async () => {
+    const response = await axios.post("/signout");
+    setUser(null);
+    setIsAuth(false);
+  };
+
+  useEffect(() => {
+    if (Cookie.get("token")) {
+      axios
+        .get("/profile")
+        .then((response) => {
+          setUser(response.data);
+          setIsAuth(true);
+        })
+        .catch((error) => {
+          console.log(error);
+          setUser(null);
+          setIsAuth(false);
+        });
+    }
+  }, [isAuth]);
+
   return (
-    <AuthContext.Provider value={{ user, isAuth, errors, signup, signin }}>
+    <AuthContext.Provider
+      value={{ user, isAuth, errors, signup, signin, signout }}
+    >
       {children}
     </AuthContext.Provider>
   );
