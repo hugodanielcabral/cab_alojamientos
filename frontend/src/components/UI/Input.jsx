@@ -1,11 +1,29 @@
-import React from "react";
-
 export const Input = (props) => {
+  const findError = () => {
+    if (props.errors) {
+      const error = props.errors.find((err) => err.path === props.name);
+      if (error) {
+        return error.msg;
+      }
+    }
+  };
   return (
-    <input
-      type="text"
-      className="block w-full p-2 my-2 text-black bg-slate-500-800"
-      {...props}
-    />
+    <>
+      {!findError() ? (
+        <input
+          type="text"
+          className="w-full max-w-xs input input-bordered"
+          {...props}
+        />
+      ) : (
+        <input
+          type="text"
+          className="w-full max-w-xs input input-bordered input-error"
+          {...props}
+        />
+      )}
+
+      {findError() && <p className="text-red-500">{findError()}</p>}
+    </>
   );
 };

@@ -17,6 +17,8 @@ export const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [errors, setErrors] = useState(null);
 
+  console.log(isAuth, "isAuth");
+
   const signup = async (data) => {
     try {
       const response = await axios.post("/signup", data);
@@ -34,6 +36,7 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.post("/signin", data);
       setUser(response.data);
       setIsAuth(true);
+      localStorage.setItem("online", true);
       return response.data;
     } catch (error) {
       setErrors(error.response.data.errors);
@@ -45,6 +48,7 @@ export const AuthProvider = ({ children }) => {
     const response = await axios.post("/signout");
     setUser(null);
     setIsAuth(false);
+    localStorage.clear("online");
   };
 
   useEffect(() => {
@@ -54,11 +58,13 @@ export const AuthProvider = ({ children }) => {
         .then((response) => {
           setUser(response.data);
           setIsAuth(true);
+          localStorage.setItem("online", true);
         })
         .catch((error) => {
           console.log(error);
           setUser(null);
           setIsAuth(false);
+          localStorage.setItem("online", false);
         });
     }
   }, [isAuth]);

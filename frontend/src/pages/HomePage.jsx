@@ -1,13 +1,27 @@
 export const HomePage = () => {
   return (
-    <div className="flex flex-col">
-      <h1>Home Page</h1>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum error
-        repellat, incidunt hic quibusdam non labore optio dignissimos vitae
-        rerum molestias dolor esse delectus at aliquid? A quisquam dicta eaque.
-      </p>
-      <img src="https://robohash.org/1" alt="" className="w-1/2" />
+    <div className="flex flex-col w-full">
+      <div
+        className="min-h-screen hero"
+        style={{
+          backgroundImage:
+            "url(https://daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.jpg)",
+        }}
+      >
+        <div className="hero-overlay bg-opacity-60"></div>
+        <div className="text-center hero-content text-neutral-content">
+          <div className="max-w-md">
+            <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
+            <p className="mb-5">
+              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
+              et a id nisi.
+            </p>
+            <button className="btn btn-primary">Get Started</button>
+          </div>
+        </div>
+      </div>
+      <h1 className="bg-primary">HomePage</h1>
     </div>
   );
 };
