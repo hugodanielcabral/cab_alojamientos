@@ -11,4 +11,5 @@ export const privateRoutes = [
   { name: "Profile", path: "/profile" },
   { name: "Propiedades", path: "/propiedades" },
   { name: "Registra tu propiedad", path: "/registro-propiedad" },
+  { name: "Mis propiedades", path: "/mis-propiedades" },
 ];

@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Label, Input, Button } from "../../../UI/index.js";
 import { usePropiedades } from "../../../../context/PropiedadesContext.jsx";
+import Swal from "sweetalert2";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const RegistroPropiedadForm = () => {
-  const { createPropiedad, errors, setErrors } = usePropiedades();
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { getPropiedad, createPropiedad, updatePropiedad, errors, setErrors } =
+    usePropiedades();
   const [formValues, setFormValues] = useState({
     nombre: "",
     descripcion: "",
@@ -25,18 +30,86 @@ export const RegistroPropiedadForm = () => {
     setFormValues({ ...formValues, [name]: value });
   };
 
+  const reset = () => {
+    setFormValues({
+      nombre: "",
+      descripcion: "",
+      provincia: "",
+      localidad: "",
+      categoria: "",
+      precio: "",
+      cant_habitaciones: "",
+      cant_camas: "",
+      cant_banios: "",
+      img_portada: "",
+      img_habitacion: "",
+      img_banio: "",
+      img_comedor: "",
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await createPropiedad(formValues);
-      console.log(response);
+      if (id) {
+        const response = await updatePropiedad(id, formValues);
+        if (response) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Propiedad actualizada correctamente",
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            reset();
+            navigate("/mis-propiedades");
+          });
+        }
+      } else {
+        const response = await createPropiedad(formValues);
+        if (response) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Propiedad creada correctamente",
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            reset();
+            navigate("/mis-propiedades");
+          });
+        }
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
+  useEffect(() => {
+    if (id) {
+      getPropiedad(id).then((propiedad) => {
+        setFormValues({
+          nombre: propiedad?.nombre,
+          descripcion: propiedad?.descripcion,
+          provincia: propiedad?.provincia,
+          localidad: propiedad?.localidad,
+          categoria: propiedad?.categoria,
+          precio: propiedad?.precio,
+          cant_habitaciones: propiedad?.cant_habitaciones,
+          cant_camas: propiedad?.cant_camas,
+          cant_banios: propiedad?.cant_banios,
+          img_portada: propiedad?.img_portada,
+          img_habitacion: propiedad?.img_habitacion,
+          img_banio: propiedad?.img_banio,
+          img_comedor: propiedad?.img_comedor,
+        });
+      });
+    }
+  }, []);
+
   return (
     <form onSubmit={handleSubmit}>
+      <h1>{id ? "Editar propiedad" : "Registrar propiedad"}</h1>
       <div className="grid grid-cols-3 gap-5">
         <div>
           <h3>Información principal</h3>

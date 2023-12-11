@@ -5,6 +5,7 @@ import {
   updatePropiedad,
   deletePropiedad,
   getPropiedad,
+  getPropiedadByUser,
 } from "../controllers/propiedades.controller.js";
 import { isAuth } from "../middlewares/auth.middleware.js";
 import {
@@ -16,6 +17,8 @@ const router = Router();
 router.get("/propiedades", getPropiedades);
 
 router.get("/propiedades/:id", isAuth, getPropiedad);
+
+router.get("/usuarios/propiedades/:id", isAuth, getPropiedadByUser);
 
 router.post("/propiedades", isAuth, validateCreate, createPropiedad);
 

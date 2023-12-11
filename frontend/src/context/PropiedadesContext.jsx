@@ -25,6 +25,25 @@ export const PropiedadesProvider = ({ children }) => {
     }
   };
 
+  const getPropiedad = async (id) => {
+    try {
+      const response = await axios.get(`/propiedades/${id}`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getPropiedadByUser = async (id) => {
+    try {
+      const response = await axios.get(`/usuarios/propiedades/${id}`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      setErrors(error.response.data.errors);
+    }
+  };
+
   const createPropiedad = async (propiedad) => {
     try {
       const response = await axios.post("/propiedades", propiedad);
@@ -36,13 +55,42 @@ export const PropiedadesProvider = ({ children }) => {
     }
   };
 
+  const updatePropiedad = async (id, propiedad) => {
+    try {
+      const response = await axios.put(`/propiedades/${id}`, propiedad);
+      setPropiedades(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      setErrors(error.response.data.errors);
+    }
+  };
+
+  const deletePropiedad = async (id) => {
+    try {
+      await axios.delete(`/propiedades/${id}`);
+      setPropiedades(propiedades.filter((propiedad) => propiedad.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getPropiedades();
   }, []);
 
   return (
     <PropiedadContext.Provider
-      value={{ propiedades, createPropiedad, errors, setErrors }}
+      value={{
+        propiedades,
+        getPropiedad,
+        getPropiedadByUser,
+        createPropiedad,
+        updatePropiedad,
+        deletePropiedad,
+        errors,
+        setErrors,
+      }}
     >
       {children}
     </PropiedadContext.Provider>

@@ -57,9 +57,11 @@ function createImageValidators() {
         .custom((value) => {
           if (
             !value.startsWith("https://") ||
-            (!value.endsWith(".jpg") && !value.endsWith(".png"))
+            (!value.endsWith(".jpg") &&
+              !value.endsWith(".png") &&
+              !value.endsWith(".jpeg"))
           ) {
-            throw new Error("La imagen debe ser una URL con .jpg o .png");
+            throw new Error("La imagen debe ser una URL con .jpg,.png o .jpeg");
           }
           return true;
         })

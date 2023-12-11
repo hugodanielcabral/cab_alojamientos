@@ -4,7 +4,7 @@ export const PropiedadesCard = ({ propiedades, categoria }) => {
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       {categoria === "Todos"
         ? propiedades.map((el, index) => (
-            <div className="shadow-xl bg-base-100" key={index}>
+            <div className="mb-5 shadow-xl bg-base-100" key={index}>
               <figure className="h-48 overflow-hidden">
                 <img
                   src={el.img_portada}
@@ -25,7 +25,7 @@ export const PropiedadesCard = ({ propiedades, categoria }) => {
         : propiedades.map((el, index) => {
             if (el.categoria === categoria) {
               return (
-                <div className="shadow-xl bg-base-100" key={index}>
+                <div className="mb-5 shadow-xl bg-base-100" key={index}>
                   <figure className="h-48 overflow-hidden">
                     <img
                       src={el.img_portada}

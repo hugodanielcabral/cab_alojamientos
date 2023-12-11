@@ -9,6 +9,7 @@ import { About } from "./pages/About";
 import { PropiedadesPage } from "./pages/PropiedadesPage";
 import { RegistroPropiedadPage } from "./pages/RegistroPropiedadPage";
 import { PropiedadesProvider } from "./context/PropiedadesContext";
+import { MisPropiedades } from "./pages/MisPropiedades";
 
 export const App = () => {
   const { user } = useAuth();
@@ -34,6 +35,11 @@ export const App = () => {
               path="/registro-propiedad"
               element={<RegistroPropiedadPage />}
             />
+            <Route
+              path="/registro-propiedad/:id/edit"
+              element={<RegistroPropiedadPage />}
+            />
+            <Route path="/mis-propiedades" element={<MisPropiedades />} />
           </Route>
         </Route>
         <Route
