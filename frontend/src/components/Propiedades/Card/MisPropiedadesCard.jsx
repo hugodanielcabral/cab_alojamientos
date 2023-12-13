@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
-export const MisPropiedadesCard = ({ propiedades, deletePropiedad }) => {
+export const MisPropiedadesCard = ({ propiedadesByUser, deletePropiedad }) => {
   const navigate = useNavigate();
   return (
     <div className="grid grid-cols-2 gap-4 mt-5">
-      {propiedades ? (
-        propiedades.map((el, index) => (
+      {propiedadesByUser ? (
+        propiedadesByUser.map((el, index) => (
           <div className="mb-5 shadow-xl bg-base-100 max-h-[400px]" key={index}>
             <figure className="h-48 overflow-hidden">
               <img
@@ -29,7 +30,25 @@ export const MisPropiedadesCard = ({ propiedades, deletePropiedad }) => {
                 </button>
                 <button
                   className="btn btn-error"
-                  onClick={() => deletePropiedad(el.propiedad_id)}
+                  onClick={() =>
+                    Swal.fire({
+                      title: "¿Seguro que quieres eliminar esta propiedad?",
+                      icon: "warning",
+                      showCancelButton: true,
+                      confirmButtonColor: "#3085d6",
+                      cancelButtonColor: "#d33",
+                      confirmButtonText: "Si, eliminar",
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        deletePropiedad(el.propiedad_id);
+                        Swal.fire(
+                          "Eliminado!",
+                          "La propiedad ha sido eliminada.",
+                          "success"
+                        );
+                      }
+                    })
+                  }
                 >
                   Eliminar
                 </button>

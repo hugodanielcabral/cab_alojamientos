@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
-import { Label, Input, Button } from "../../../UI/index.js";
+import { Label, Input, Button, Select } from "../../../UI/index.js";
 import { usePropiedades } from "../../../../context/PropiedadesContext.jsx";
-import Swal from "sweetalert2";
 import { useNavigate, useParams } from "react-router-dom";
+import {
+  provincias_argentinas,
+  categorias_propiedades,
+} from "../../../../data/index.js";
+import Swal from "sweetalert2";
 
 export const RegistroPropiedadForm = () => {
   const { id } = useParams();
@@ -85,8 +89,10 @@ export const RegistroPropiedadForm = () => {
     }
   };
 
+  // Edit
   useEffect(() => {
     if (id) {
+      setErrors(null);
       getPropiedad(id).then((propiedad) => {
         setFormValues({
           nombre: propiedad?.nombre,
@@ -109,10 +115,12 @@ export const RegistroPropiedadForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>{id ? "Editar propiedad" : "Registrar propiedad"}</h1>
+      <h1 className="mt-2 mb-5 text-3xl text-center text-primary">
+        {id ? "Editar propiedad" : "Registrar propiedad"}
+      </h1>
       <div className="grid grid-cols-3 gap-5">
         <div>
-          <h3>Información principal</h3>
+          <h3 className="text-xl text-secondary">Información principal</h3>
           <Label>
             <div className="label">
               <span className="label-text">Nombre</span>
@@ -141,13 +149,20 @@ export const RegistroPropiedadForm = () => {
             <div className="label">
               <span className="label-text">Provincia</span>
             </div>
-            <Input
+            <Select
               onChange={handleChange}
               value={formValues.provincia}
               name="provincia"
               id="provincia"
               errors={errors}
-            />
+            >
+              <option value="">Elige...</option>
+              {provincias_argentinas.map((provincia) => (
+                <option key={provincia} value={provincia}>
+                  {provincia}
+                </option>
+              ))}
+            </Select>
           </Label>
           <Label>
             <div className="label">
@@ -165,13 +180,20 @@ export const RegistroPropiedadForm = () => {
             <div className="label">
               <span className="label-text">Categoría</span>
             </div>
-            <Input
+            <Select
               onChange={handleChange}
               value={formValues.categoria}
               name="categoria"
               id="categoria"
               errors={errors}
-            />
+            >
+              <option value="">Elige...</option>
+              {categorias_propiedades.map((categoria) => (
+                <option key={categoria} value={categoria}>
+                  {categoria}
+                </option>
+              ))}
+            </Select>
           </Label>
           <Label>
             <div className="label">
@@ -189,7 +211,7 @@ export const RegistroPropiedadForm = () => {
         </div>
 
         <div>
-          <h3>Números</h3>
+          <h3 className="text-xl text-secondary">Cantidades</h3>
           <Label>
             <div className="label">
               <span className="label-text">Número de habitaciones</span>
@@ -232,7 +254,7 @@ export const RegistroPropiedadForm = () => {
         </div>
 
         <div>
-          <h3>Imágenes</h3>
+          <h3 className="text-xl text-secondary">Imágenes</h3>
           <Label>
             <div className="label">
               <span className="label-text">Portada</span>

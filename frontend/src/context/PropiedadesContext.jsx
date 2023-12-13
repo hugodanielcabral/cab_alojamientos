@@ -20,6 +20,7 @@ export const PropiedadesProvider = ({ children }) => {
     try {
       const response = await axios.get("/propiedades");
       setPropiedades(response.data);
+      return response.data;
     } catch (error) {
       console.log(error);
     }
@@ -82,13 +83,13 @@ export const PropiedadesProvider = ({ children }) => {
   return (
     <PropiedadContext.Provider
       value={{
-        propiedades,
         getPropiedad,
         getPropiedadByUser,
         createPropiedad,
         updatePropiedad,
         deletePropiedad,
         errors,
+        propiedades,
         setErrors,
       }}
     >

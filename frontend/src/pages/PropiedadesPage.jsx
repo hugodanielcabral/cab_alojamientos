@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "../api/axios.js";
 import { PropiedadesCategorias } from "../components/Propiedades/Categorias/PropiedadesCategorias.jsx";
 import { PropiedadesCard } from "../components/Propiedades/Card/PropiedadesCard.jsx";
+import { useParams } from "react-router-dom";
 
 export const PropiedadesPage = () => {
   const [categoria, setCategoria] = useState("Todos");

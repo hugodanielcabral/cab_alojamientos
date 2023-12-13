@@ -6,7 +6,7 @@ export const Layout = ({ children }) => {
   return (
     <>
       <Navbar />
-      <main className="flex justify-center min-h-screen bg-slate-600">
+      <main className="flex justify-center min-h-screen bg-neutral">
         {children}
       </main>
       <Footer />

@@ -1,33 +1,30 @@
+import { Button } from "../../UI/index.js";
+
 export const PropiedadesCategorias = ({ setCategoria }) => {
+  const categorias = [
+    "Todos",
+    "Cabañas",
+    "Casas de Campo",
+    "Frente a la playa",
+    "Camping",
+    "Cuevas",
+    "Minicasas",
+    "Casa de árbol",
+  ];
+
   return (
     <div className="container flex justify-center navbar">
       <div className="overflow-x-auto">
         <div className="flex gap-4">
-          <button
-            className="btn btn-secondary"
-            onClick={() => setCategoria("Todos")}
-          >
-            Todos
-          </button>
-          <button
-            className="btn btn-primary"
-            onClick={() => setCategoria("Cabaña")}
-          >
-            Cabañas
-          </button>
-          <button
-            className="btn btn-primary"
-            onClick={() => setCategoria("Casas de campo")}
-          >
-            Casa de Campo
-          </button>
-          <button className="btn btn-primary">Frente a la playa</button>
-          <button className="btn btn-primary">Camping</button>
-          <button className="btn btn-primary">Cuevas</button>
-          <button className="btn btn-primary">Minicasas</button>
-          <button className="btn btn-primary">Casa de árbol</button>
-          <button className="btn btn-primary">Ecológico</button>
-          <button className="btn btn-primary">Casas rodantes</button>
+          {categorias.map((el, index) => (
+            <Button
+              className="btn btn-primary"
+              key={index}
+              onClick={() => setCategoria(el)}
+            >
+              {el}
+            </Button>
+          ))}
         </div>
       </div>
     </div>

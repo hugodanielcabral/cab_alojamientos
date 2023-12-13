@@ -10,6 +10,7 @@ import { PropiedadesPage } from "./pages/PropiedadesPage";
 import { RegistroPropiedadPage } from "./pages/RegistroPropiedadPage";
 import { PropiedadesProvider } from "./context/PropiedadesContext";
 import { MisPropiedades } from "./pages/MisPropiedades";
+import { PropiedadesPreview } from "./components/Propiedades/Preview/PropiedadesPreview";
 
 export const App = () => {
   const { user } = useAuth();
@@ -18,7 +19,7 @@ export const App = () => {
     <Layout>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/propiedades" element={<PropiedadesPage />} />
+        <Route path="/about" element={<About />} />
         <Route element={<ProtectedRoute isAllowed={!user} />}>
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -40,14 +41,16 @@ export const App = () => {
               element={<RegistroPropiedadPage />}
             />
             <Route path="/mis-propiedades" element={<MisPropiedades />} />
+            <Route path="/propiedades" element={<PropiedadesPage />} />
+            <Route path="/propiedades/:id" element={<PropiedadesPreview />} />
           </Route>
         </Route>
         <Route
           path="/about"
           element={
-            <ProtectedRoute isAllowed={!!user && user.rol === "ADMIN"}>
-              <About />
-            </ProtectedRoute>
+            <ProtectedRoute
+              isAllowed={!!user && user.rol === "ADMIN"}
+            ></ProtectedRoute>
           }
         />
       </Routes>

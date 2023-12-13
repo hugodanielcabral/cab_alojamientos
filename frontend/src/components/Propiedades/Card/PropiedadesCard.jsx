@@ -1,5 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 export const PropiedadesCard = ({ propiedades, categoria }) => {
-  console.log(propiedades.img_portada);
+  const navigate = useNavigate();
+
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       {categoria === "Todos"
@@ -16,9 +19,14 @@ export const PropiedadesCard = ({ propiedades, categoria }) => {
                 <h2 className="text-lg font-bold">{el.nombre}</h2>
                 <p>{`${el.provincia}, ${el.localidad}`}</p>
                 <p>${el.precio} por noche</p>
-                <div className="mt-4">
-                  <button className="btn btn-primary">Ver</button>
-                </div>
+              </div>
+              <div className="p-4 text-center">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => navigate(`/propiedades/${el.propiedad_id}`)}
+                >
+                  Ver
+                </button>
               </div>
             </div>
           ))

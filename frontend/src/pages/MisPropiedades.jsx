@@ -4,15 +4,15 @@ import { useAuth } from "../context/AuthContext";
 import { MisPropiedadesCard } from "../components/Propiedades/Card/MisPropiedadesCard";
 
 export const MisPropiedades = () => {
-  const { getPropiedadByUser, deletePropiedad } = usePropiedades();
+  const { getPropiedadByUser, deletePropiedad, propiedades } = usePropiedades();
   const { user } = useAuth();
-  const [propiedades, setPropiedades] = useState([]);
+  const [propiedadesByUser, setPropiedadesByUser] = useState([]);
 
   useEffect(() => {
     const getPropiedades = async () => {
       try {
         const response = await getPropiedadByUser(user.usuario_id);
-        setPropiedades(response);
+        setPropiedadesByUser(response);
       } catch (error) {
         console.log(error);
       }
@@ -21,11 +21,9 @@ export const MisPropiedades = () => {
   }, [propiedades]);
 
   return (
-    <>
-      <MisPropiedadesCard
-        propiedades={propiedades}
-        deletePropiedad={deletePropiedad}
-      />
-    </>
+    <MisPropiedadesCard
+      propiedadesByUser={propiedadesByUser}
+      deletePropiedad={deletePropiedad}
+    />
   );
 };

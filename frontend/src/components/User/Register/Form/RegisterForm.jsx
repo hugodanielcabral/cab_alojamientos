@@ -1,17 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Card, Input, Label } from "../../../UI/index.js";
 import { LiaEyeSolid, LiaEyeSlashSolid } from "react-icons/lia";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../context/AuthContext.jsx";
+import Swal from "sweetalert2";
 
 export const RegisterForm = () => {
   const { signup, errors } = useAuth();
   const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
+    nombre: "",
     email: "",
     contrasena: "",
+    pais: "",
+    rol: "CLIENTE",
   });
   const [showContrasena, setShowContrasena] = useState(false);
 
@@ -21,10 +25,6 @@ export const RegisterForm = () => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
-
-  const nombre = "dani";
-  const pais = "Argentina";
-  const rol = "ADMIN";
 
   const createUser = async () => {
     const response = axios.post("http://localhost:3000/api/signup", {
@@ -45,14 +45,24 @@ export const RegisterForm = () => {
     e.preventDefault();
     try {
       const data = {
-        nombre: nombre,
+        nombre: formValues.nombre,
         correo: formValues.email,
         contrasena: formValues.contrasena,
-        pais: pais,
-        rol: rol,
+        pais: formValues.pais,
+        rol: formValues.rol,
       };
       const response = await signup(data);
-      if (response.status === 200) navigate("/login");
+      if (response) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Usuario creado exitosamente",
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => {
+          navigate("/");
+        });
+      }
       /* const response = await fetch("http://localhost:3000/api/signup", {
         method: "POST",
         headers: {
@@ -85,6 +95,16 @@ export const RegisterForm = () => {
         )}
         <h1>Formulario</h1>
         <form onSubmit={handleSubmit}>
+          <Label htmlFor="nombre">Nombre</Label>
+          <Input
+            type="text"
+            name="nombre"
+            id="nombre"
+            onChange={handleChange}
+            value={formValues.nombre}
+            placeholder="Ingresa tu nombre"
+            required
+          />
           <Label htmlFor="email">Correo</Label>
           <Input
             type="email"
@@ -104,6 +124,16 @@ export const RegisterForm = () => {
               onChange={handleChange}
               value={formValues.contrasena}
               placeholder="Ingresa tu contraseña"
+              required
+            />
+            <Label htmlFor="pais">Pais</Label>
+            <Input
+              type="text"
+              name="pais"
+              id="pais"
+              onChange={handleChange}
+              value={formValues.pais}
+              placeholder="Ingresa tu pais"
               required
             />
 
