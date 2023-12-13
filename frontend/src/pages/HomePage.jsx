@@ -16,7 +16,7 @@ export const HomePage = () => {
         <div className="text-center hero-content text-neutral-content">
           <div className="max-w-md">
             <h1 className="mb-5 text-5xl font-bold text-secondary">
-              DonC Alojamientos{" "}
+              DonC Alojamientos
             </h1>
             <p className="mb-5 text-2xl">Encontrá tu próximo alojamiento</p>
           </div>

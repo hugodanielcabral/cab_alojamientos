@@ -14,6 +14,10 @@ import { PropiedadesPreview } from "./components/Propiedades/Preview/Propiedades
 
 export const App = () => {
   const { user } = useAuth();
+  // Cuando recargo la página, se reseteaba el isAuth del useAuth, lo que ocasionaba que se
+  // redireccione otra vez las rutas protegidas por el usuario. La solución fue
+  // guardar el isAuth en el localStorage.
+  const isAuth = localStorage.getItem("isAuth");
 
   return (
     <Layout>
@@ -24,7 +28,7 @@ export const App = () => {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Route>
-        <Route element={<ProtectedRoute isAllowed={!!user} />}>
+        <Route element={<ProtectedRoute isAllowed={!!isAuth} />}>
           <Route
             element={
               <PropiedadesProvider>

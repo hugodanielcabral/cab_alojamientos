@@ -22,9 +22,9 @@ export const AuthProvider = ({ children }) => {
   const signup = async (data) => {
     try {
       const response = await axios.post("/signup", data);
-      setUser(response.data);
-      setIsAuth(true);
-      localStorage.setItem("online", true);
+      //setUser(response.data);
+      //setIsAuth(true);
+      //localStorage.setItem("online", true);
       return response.data;
     } catch (error) {
       setErrors(error.response.data.errors);
@@ -59,17 +59,19 @@ export const AuthProvider = ({ children }) => {
         .then((response) => {
           setUser(response.data);
           setIsAuth(true);
+          localStorage.setItem("isAuth", true);
           localStorage.setItem("online", true);
         })
         .catch((error) => {
           console.log(error);
           setUser(null);
           setIsAuth(false);
-          localStorage.setItem("online", false);
+          localStorage.removeItem("online", false);
+          localStorage.removeItem("isAuth", false);
           Cookie.remove("token");
         });
     }
-  }, []);
+  }, [isAuth]);
 
   return (
     <AuthContext.Provider

@@ -11,6 +11,7 @@ export const MisPropiedades = () => {
   useEffect(() => {
     const getPropiedades = async () => {
       try {
+        if (!user) return;
         const response = await getPropiedadByUser(user.usuario_id);
         setPropiedadesByUser(response);
       } catch (error) {

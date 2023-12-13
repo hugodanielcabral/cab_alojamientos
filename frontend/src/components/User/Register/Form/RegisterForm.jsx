@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Button, Card, Input, Label } from "../../../UI/index.js";
+import { Button, Card, Input, Label, Select } from "../../../UI/index.js";
 import { LiaEyeSolid, LiaEyeSlashSolid } from "react-icons/lia";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../context/AuthContext.jsx";
+import { arreglo_paises } from "../../../../data/index.js";
 import Swal from "sweetalert2";
 
 export const RegisterForm = () => {
@@ -60,7 +61,7 @@ export const RegisterForm = () => {
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
-          navigate("/");
+          navigate("/login");
         });
       }
       /* const response = await fetch("http://localhost:3000/api/signup", {
@@ -126,16 +127,21 @@ export const RegisterForm = () => {
               placeholder="Ingresa tu contraseña"
               required
             />
-            <Label htmlFor="pais">Pais</Label>
-            <Input
-              type="text"
+            <Select
               name="pais"
               id="pais"
               onChange={handleChange}
               value={formValues.pais}
-              placeholder="Ingresa tu pais"
               required
-            />
+              className="w-full max-w-xs my-3 select select-bordered"
+            >
+              <option value="">Pais</option>
+              {arreglo_paises.map((pais) => (
+                <option key={pais} value={pais}>
+                  {pais}
+                </option>
+              ))}
+            </Select>
 
             <Button
               className="absolute inset-y-0 right-0 flex items-center pr-3 text-2xl text-black"

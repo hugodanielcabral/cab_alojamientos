@@ -38,6 +38,7 @@ export const PropiedadesProvider = ({ children }) => {
   const getPropiedadByUser = async (id) => {
     try {
       const response = await axios.get(`/usuarios/propiedades/${id}`);
+
       return response.data;
     } catch (error) {
       console.log(error);
