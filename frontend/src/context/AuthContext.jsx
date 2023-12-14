@@ -52,6 +52,15 @@ export const AuthProvider = ({ children }) => {
     localStorage.clear("online");
   };
 
+  const profile = async () => {
+    try {
+      const response = await axios.get("/profile");
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (Cookie.get("token")) {
       axios
@@ -75,7 +84,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, isAuth, errors, signup, signin, signout }}
+      value={{ user, isAuth, errors, signup, signin, signout, profile }}
     >
       {children}
     </AuthContext.Provider>

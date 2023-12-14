@@ -5,6 +5,7 @@ import {
   updateReserva,
   deleteReserva,
   getReserva,
+  getReservasByFecha,
 } from "../controllers/reservas.controller.js";
 import { isAuth } from "../middlewares/auth.middleware.js";
 import {
@@ -17,6 +18,8 @@ const router = Router();
 router.get("/reservas", isAuth, getReservas);
 
 router.get("/reservas/:id", isAuth, getReserva);
+
+router.get("/reservas/fechas/:id", isAuth, getReservasByFecha);
 
 router.post("/reservas", isAuth, validateCreate, createReserva);
 

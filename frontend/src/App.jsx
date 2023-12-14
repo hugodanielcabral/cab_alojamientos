@@ -11,6 +11,10 @@ import { RegistroPropiedadPage } from "./pages/RegistroPropiedadPage";
 import { PropiedadesProvider } from "./context/PropiedadesContext";
 import { MisPropiedades } from "./pages/MisPropiedades";
 import { PropiedadesPreview } from "./components/Propiedades/Preview/PropiedadesPreview";
+import { ReservaPage } from "./pages/ReservaPage";
+import { ReservasProvider } from "./context/ReservasContext";
+import { ProfilePage } from "./pages/ProfilePage";
+import { MisReservasPage } from "./pages/MisReservasPage";
 
 export const App = () => {
   const { user } = useAuth();
@@ -47,6 +51,17 @@ export const App = () => {
             <Route path="/mis-propiedades" element={<MisPropiedades />} />
             <Route path="/propiedades" element={<PropiedadesPage />} />
             <Route path="/propiedades/:id" element={<PropiedadesPreview />} />
+            <Route
+              element={
+                <ReservasProvider>
+                  <Outlet />
+                </ReservasProvider>
+              }
+            >
+              <Route path="/reservas/:id" element={<ReservaPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/mis-reservas" element={<MisReservasPage />} />
+            </Route>
           </Route>
         </Route>
         <Route

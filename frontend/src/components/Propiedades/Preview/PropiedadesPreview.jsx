@@ -1,23 +1,55 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { usePropiedades } from "../../../context/PropiedadesContext";
 import { useEffect, useState } from "react";
-import { Button } from "../../UI/Button";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { Button, DatePickerUI } from "../../UI/index.js";
+import axios from "../../../api/axios.js";
+
+const today = new Date();
+const tomorrow = new Date(today);
+tomorrow.setDate(tomorrow.getDate() + 1);
 
 export const PropiedadesPreview = () => {
   const { id } = useParams();
   const { getPropiedad } = usePropiedades();
   const [propiedad, setPropiedad] = useState([]);
-  console.log(propiedad);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [excludedDates, setExcludedDates] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPropiedad(id).then((data) => {
       setPropiedad(data);
     });
   }, []);
+
+  useEffect(() => {
+    const getReservasByFecha = async () => {
+      try {
+        const response = await axios.get(`/reservas/fechas/${id}`);
+        const fechasReservadas = response.data
+          .map((reserva) => {
+            const inicio = new Date(reserva.fecha_inicio);
+            const fin = new Date(reserva.fecha_fin);
+            const range = [];
+            for (
+              let dt = new Date(inicio);
+              dt <= fin;
+              dt.setDate(dt.getDate() + 1)
+            ) {
+              range.push(new Date(dt));
+            }
+            return range;
+          })
+          .flat();
+        setExcludedDates(fechasReservadas);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getReservasByFecha();
+  }, []);
+
   return (
     <div className="bg-secondary-content">
       {propiedad ? (
@@ -88,7 +120,19 @@ export const PropiedadesPreview = () => {
                     <h1 className="text-xl font-bold md:text-3xl card-title text-primary">
                       ${propiedad.precio} USD por noche
                     </h1>
-                    <Button className="btn btn-secondary">Reservar</Button>
+                    <Button
+                      className="btn btn-secondary"
+                      onClick={() =>
+                        navigate(`/reservas/${propiedad.propiedad_id}`, {
+                          state: {
+                            startDate,
+                            endDate,
+                          },
+                        })
+                      }
+                    >
+                      Reservar
+                    </Button>
                   </div>
                   <div className="flex flex-col items-center justify-center gap-4 mb-5">
                     <label
@@ -98,14 +142,15 @@ export const PropiedadesPreview = () => {
                       Selecciona el día de llegada:
                     </label>
                     <div className="mt-1">
-                      <DatePicker
+                      <DatePickerUI
                         id="arrival-date"
                         selected={startDate}
                         onChange={(date) => setStartDate(date)}
                         selectsStart
                         startDate={startDate}
                         endDate={endDate}
-                        className="w-full form-input"
+                        excludeDates={excludedDates}
+                        minDate={tomorrow}
                       />
                     </div>
 
@@ -116,15 +161,21 @@ export const PropiedadesPreview = () => {
                       Selecciona el día de salida:
                     </label>
                     <div className="mt-1">
-                      <DatePicker
+                      <DatePickerUI
                         id="departure-date"
                         selected={endDate}
                         onChange={(date) => setEndDate(date)}
                         selectsEnd
                         startDate={startDate}
                         endDate={endDate}
-                        minDate={startDate}
-                        className="w-full form-input"
+                        minDate={
+                          startDate
+                            ? new Date(
+                                startDate.setDate(startDate.getDate() + 1)
+                              )
+                            : tomorrow
+                        }
+                        excludeDates={excludedDates}
                       />
                     </div>
                   </div>
