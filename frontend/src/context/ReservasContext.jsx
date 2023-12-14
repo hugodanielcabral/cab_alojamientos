@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import axios from "../api/axios.js";
 
 const ReservaContext = createContext();
@@ -52,6 +52,10 @@ export const ReservasProvider = ({ children }) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    getReservas();
+  }, [reservas]);
 
   return (
     <ReservaContext.Provider

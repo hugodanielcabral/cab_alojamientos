@@ -3,13 +3,13 @@ import pool from "../db.js";
 export const getReservas = async (req, res) => {
   try {
     const result = await pool.query(
-      "SELECT * FROM reservas WHERE usuario_id = $1",
+      "SELECT reservas.*, propiedades.nombre AS nombre_propiedad, propiedades.img_portada AS portada FROM reservas INNER JOIN propiedades ON reservas.propiedad_id = propiedades.propiedad_id WHERE reservas.usuario_id = $1",
       [req.userId]
     );
     res.json(result.rows);
   } catch (error) {
     return res.status(500).json({
-      message: "Ocurrio un error",
+      message: "Ocurrió un error",
       error: error.message,
     });
   }
