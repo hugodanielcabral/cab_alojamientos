@@ -10,7 +10,10 @@ export const Select = (props) => {
   return (
     <>
       {!findError() ? (
-        <select className="w-full max-w-xs select select-bordered" {...props}>
+        <select
+          className="w-full max-w-xs select select-bordered border-white bg-[#212d30] shadow-lg shadow-black"
+          {...props}
+        >
           {props.children}
         </select>
       ) : (

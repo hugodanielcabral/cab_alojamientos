@@ -8,8 +8,11 @@ export const ReservasForm = ({ startDate, endDate }) => {
   const { id } = useParams();
   const { createReserva, errors } = useReservas();
   const [propiedad, setPropiedad] = useState([]);
-  const [precioFinal, setPrecioFinal] = useState(0);
   const { getPropiedad } = usePropiedades();
+
+  if (!startDate || !endDate) {
+    return (window.location.href = "/");
+  }
 
   const [formValues, setFormValues] = useState({
     propiedad_id: id,
@@ -49,7 +52,7 @@ export const ReservasForm = ({ startDate, endDate }) => {
   }, []);
 
   return (
-    <div className="grid grid-cols-6 gap-16">
+    <div className="grid grid-cols-6 gap-1">
       <div className="flex flex-col items-center justify-center col-span-6 grid-rows-1">
         <h1 className="mb-6 text-3xl font-bold text-center text-primary">
           Confirmá y pagá

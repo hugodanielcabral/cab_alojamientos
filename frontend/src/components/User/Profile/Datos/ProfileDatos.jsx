@@ -8,7 +8,7 @@ export const ProfileDatos = () => {
     <>
       <div className="grid gap-10 lg:grid-cols-3">
         <div className="flex flex-col items-center justify-center col-span-3 lg:col-span-1">
-          <div className="w-full p-3 shadow-xl card lg:w-96 bg-base-100">
+          <div className="w-full p-3 bg-white border shadow-xl card lg:w-96 border-base-500 shadow-slate-700">
             <div className="justify-center avatar">
               <div className="w-24 rounded-full">
                 <img src={user.avatar} alt={`Avatar de ${user.name}`} />
@@ -18,7 +18,7 @@ export const ProfileDatos = () => {
               <h2 className="justify-center card-title text-primary">
                 {user.nombre}
               </h2>
-              <p className="text-center">{user.correo}</p>
+              <p className="text-center text-black">{user.correo}</p>
               <p className="text-center text-secondary">{user.rol}</p>
               <div className="justify-end card-actions"></div>
             </div>
@@ -38,10 +38,12 @@ export const ProfileDatos = () => {
                 />
               </figure>
               <div className="card-body">
-                <h2 className="card-title">Mis reservas</h2>
+                <h2 className="my-auto text-2xl font-bold text-center">
+                  Mis reservas
+                </h2>
               </div>
             </Link>
-            <div className="my-4 divider lg:divider-horizontal lg:my-0">OR</div>
+            <div className="my-4 divider lg:divider-horizontal lg:my-0 divider-secondary"></div>
             <Link
               to={"/mis-propiedades"}
               className="w-full shadow-xl card lg:w-96 bg-base-100 image-full"
@@ -53,7 +55,9 @@ export const ProfileDatos = () => {
                 />
               </figure>
               <div className="card-body">
-                <h2 className="card-title">Mis propiedades</h2>
+                <h2 className="my-auto text-2xl font-bold text-center">
+                  Mis propiedades
+                </h2>
               </div>
             </Link>
           </div>

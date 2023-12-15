@@ -163,7 +163,7 @@ export const deletePropiedad = async (req, res) => {
       });
     }
     console.log(result);
-    res.sendStatus(204);
+    res.sendStatus(204).json({ message: "Propiedad eliminada" });
   } catch (error) {
     return res.status(500).json({
       message: "Ocurrio un error",

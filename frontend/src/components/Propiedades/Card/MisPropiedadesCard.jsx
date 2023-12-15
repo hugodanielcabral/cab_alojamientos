@@ -1,13 +1,16 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export const MisPropiedadesCard = ({ propiedadesByUser, deletePropiedad }) => {
   const navigate = useNavigate();
   return (
-    <div className="grid grid-cols-2 gap-4 mt-5">
+    <div className="grid w-full grid-cols-2 gap-4">
       {propiedadesByUser ? (
         propiedadesByUser.map((el, index) => (
-          <div className="mb-5 shadow-xl bg-base-100 max-h-[400px]" key={index}>
+          <div
+            className="mb-5 shadow-xl bg-base-100 max-h-[400px] mt-5"
+            key={index}
+          >
             <figure className="h-48 overflow-hidden">
               <img
                 src={el.img_portada}
@@ -57,7 +60,27 @@ export const MisPropiedadesCard = ({ propiedadesByUser, deletePropiedad }) => {
           </div>
         ))
       ) : (
-        <div>No hay propiedades</div>
+        <div
+          className="w-full min-h-screen col-span-2 hero bg-base-200"
+          style={{
+            backgroundImage:
+              "url(https://th.bing.com/th/id/OIG.zAM9.0IR3wzAC4MrPDvg?pid=ImgGn)",
+          }}
+        >
+          <div className="hero-overlay bg-opacity-60"></div>
+          <div className="text-center hero-content text-neutral-content">
+            <div className="max-w-md">
+              <h1 className="mb-5 text-5xl font-bold">No tienes propiedades</h1>
+              <p className="mb-5">
+                Parece que aun no publicaste ninguna propiedad. Crea una para
+                comenzar:
+              </p>
+              <Link to={"/registro-propiedad"} className="btn btn-primary">
+                Crea una ahora mismo
+              </Link>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

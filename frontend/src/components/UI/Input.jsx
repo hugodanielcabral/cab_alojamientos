@@ -12,7 +12,7 @@ export const Input = (props) => {
       {!findError() ? (
         <input
           type="text"
-          className="w-full max-w-xs input input-bordered"
+          className="w-full max-w-xs input input-bordered border-white bg-[#212d30] shadow-lg shadow-black"
           {...props}
         />
       ) : (

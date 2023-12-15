@@ -3,6 +3,7 @@ import { usePropiedades } from "../../../context/PropiedadesContext";
 import { useEffect, useState } from "react";
 import { Button, DatePickerUI } from "../../UI/index.js";
 import axios from "../../../api/axios.js";
+import { useAuth } from "../../../context/AuthContext.jsx";
 
 const today = new Date();
 const tomorrow = new Date(today);
@@ -15,6 +16,7 @@ export const PropiedadesPreview = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [excludedDates, setExcludedDates] = useState([]);
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,6 +51,8 @@ export const PropiedadesPreview = () => {
     };
     getReservasByFecha();
   }, []);
+
+  console.log(user);
 
   return (
     <div className="bg-secondary-content">
@@ -120,19 +124,36 @@ export const PropiedadesPreview = () => {
                     <h1 className="text-xl font-bold md:text-3xl card-title text-primary">
                       ${propiedad.precio} USD por noche
                     </h1>
-                    <Button
-                      className="btn btn-secondary"
-                      onClick={() =>
-                        navigate(`/reservas/${propiedad.propiedad_id}`, {
-                          state: {
-                            startDate,
-                            endDate,
-                          },
-                        })
-                      }
-                    >
-                      Reservar
-                    </Button>
+                    {propiedad.usuario_id == user.usuario_id ? (
+                      <Button
+                        className="btn btn-secondary disabled:text-red-700"
+                        disabled
+                        onClick={() =>
+                          navigate(`/reservas/${propiedad.propiedad_id}`, {
+                            state: {
+                              startDate,
+                              endDate,
+                            },
+                          })
+                        }
+                      >
+                        No puedes reservar una propiedad que creas!
+                      </Button>
+                    ) : (
+                      <Button
+                        className="btn btn-secondary"
+                        onClick={() =>
+                          navigate(`/reservas/${propiedad.propiedad_id}`, {
+                            state: {
+                              startDate,
+                              endDate,
+                            },
+                          })
+                        }
+                      >
+                        Reservar
+                      </Button>
+                    )}
                   </div>
                   <div className="flex flex-col items-center justify-center gap-4 mb-5">
                     <label

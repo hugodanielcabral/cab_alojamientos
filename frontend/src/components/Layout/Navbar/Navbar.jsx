@@ -9,7 +9,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <div className="sticky top-0 navbar bg-base-100 shadow z-[1] ">
+      <div className="sticky top-0 navbar bg-base-100 z-[100] border border-base-300 shadow shadow-base-300">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -67,7 +67,13 @@ export const Navbar = () => {
                     key={el.name}
                     className={location.pathname === el.path ? "bordered" : ""}
                   >
-                    <Link to={el.path}>{el.name}</Link>
+                    {el.name === "Explora" ? (
+                      <Link to={el.path} className="font-bold text-secondary">
+                        {el.name}
+                      </Link>
+                    ) : (
+                      <Link to={el.path}>{el.name}</Link>
+                    )}
                   </li>
                 ))
               : publicRoutes.map((el) => (

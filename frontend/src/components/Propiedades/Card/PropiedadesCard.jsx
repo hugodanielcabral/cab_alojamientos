@@ -1,13 +1,12 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const PropiedadesCard = ({ propiedades, categoria }) => {
-  const navigate = useNavigate();
-
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-      {categoria === "Todos"
-        ? propiedades.map((el, index) => (
-            <div className="mb-5 shadow-xl bg-base-100" key={index}>
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+      {categoria === "Todos" ? (
+        propiedades.map((el, index) => (
+          <Link to={`/propiedades/${el.propiedad_id}`} key={index}>
+            <div className="flex flex-col h-full mb-5 shadow-2xl shadow-slate-900 bg-base-100 hover:shadow-slate-700 hover:shadow-xl">
               <figure className="h-48 overflow-hidden">
                 <img
                   src={el.img_portada}
@@ -15,25 +14,20 @@ export const PropiedadesCard = ({ propiedades, categoria }) => {
                   className="object-cover w-full h-full rounded-t-xl"
                 />
               </figure>
-              <div className="p-4 text-center">
+              <div className="flex-grow p-4 text-center">
                 <h2 className="text-lg font-bold">{el.nombre}</h2>
                 <p>{`${el.provincia}, ${el.localidad}`}</p>
-                <p>${el.precio} por noche</p>
-              </div>
-              <div className="p-4 text-center">
-                <button
-                  className="btn btn-primary"
-                  onClick={() => navigate(`/propiedades/${el.propiedad_id}`)}
-                >
-                  Ver
-                </button>
+                <p>${el.precio} USD por noche</p>
               </div>
             </div>
-          ))
-        : propiedades.map((el, index) => {
-            if (el.categoria === categoria) {
-              return (
-                <div className="mb-5 shadow-xl bg-base-100" key={index}>
+          </Link>
+        ))
+      ) : propiedades.filter((el) => el.categoria === categoria).length > 0 ? (
+        propiedades.map((el, index) => {
+          if (el.categoria === categoria) {
+            return (
+              <Link to={`/propiedades/${el.propiedad_id}`} key={index}>
+                <div className="flex flex-col h-full mb-5 shadow-xl bg-base-100">
                   <figure className="h-48 overflow-hidden">
                     <img
                       src={el.img_portada}
@@ -41,18 +35,22 @@ export const PropiedadesCard = ({ propiedades, categoria }) => {
                       className="object-cover w-full h-full rounded-t-xl"
                     />
                   </figure>
-                  <div className="p-4 text-center">
+                  <div className="flex-grow p-4 text-center">
                     <h2 className="text-lg font-bold">{el.nombre}</h2>
                     <p>{`${el.provincia}, ${el.localidad}`}</p>
-                    <p>${el.precio} por noche</p>
-                    <div className="mt-4">
-                      <button className="btn btn-primary">Ver</button>
-                    </div>
+                    <p>${el.precio} USD por noche</p>
                   </div>
                 </div>
-              );
-            }
-          })}
+              </Link>
+            );
+          }
+          return null;
+        })
+      ) : (
+        <p className="text-center col-span-full">
+          No hay propiedades en esta categoría.
+        </p>
+      )}
     </div>
   );
 };

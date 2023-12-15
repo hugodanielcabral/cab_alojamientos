@@ -70,8 +70,9 @@ export const PropiedadesProvider = ({ children }) => {
 
   const deletePropiedad = async (id) => {
     try {
-      await axios.delete(`/propiedades/${id}`);
+      const response = await axios.delete(`/propiedades/${id}`);
       setPropiedades(propiedades.filter((propiedad) => propiedad.id !== id));
+      return response.data;
     } catch (error) {
       console.log(error);
     }

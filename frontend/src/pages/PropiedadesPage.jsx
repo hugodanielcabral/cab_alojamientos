@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import axios from "../api/axios.js";
 import { PropiedadesCategorias } from "../components/Propiedades/Categorias/PropiedadesCategorias.jsx";
 import { PropiedadesCard } from "../components/Propiedades/Card/PropiedadesCard.jsx";
-import { useParams } from "react-router-dom";
 
 export const PropiedadesPage = () => {
   const [categoria, setCategoria] = useState("Todos");
@@ -21,10 +20,17 @@ export const PropiedadesPage = () => {
     getPropiedades();
   }, []);
 
+  console.log(propiedades);
+
   return (
     <div className="flex flex-col w-3/4">
       <PropiedadesCategorias setCategoria={setCategoria} />
       <PropiedadesCard propiedades={propiedades} categoria={categoria} />
+      {propiedades.length === 0 ? (
+        <div className="mx-auto mt-10">
+          <span className="p-5 mx-auto loading loading-spinner text-error"></span>
+        </div>
+      ) : null}
     </div>
   );
 };
