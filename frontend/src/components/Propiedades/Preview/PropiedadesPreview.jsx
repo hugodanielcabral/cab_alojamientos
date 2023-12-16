@@ -16,7 +16,8 @@ export const PropiedadesPreview = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [excludedDates, setExcludedDates] = useState([]);
-  const { user } = useAuth();
+  //const { user } = useAuth();
+  const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -55,35 +56,73 @@ export const PropiedadesPreview = () => {
   console.log(user);
 
   return (
-    <div className="bg-secondary-content">
+    <>
       {propiedad ? (
         <div className="flex flex-col items-center justify-between">
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:grid-rows-2">
-            <div className="md:col-span-2 md:row-span-2">
-              <img
-                src={propiedad.img_portada}
-                alt=""
-                className="object-cover w-full h-full"
-              />
-            </div>
-            <div>
-              <img
-                src={propiedad.img_habitacion}
-                alt=""
-                className="object-cover w-full h-full"
-              />
-            </div>
-            <div>
-              <img
-                src={propiedad.img_comedor}
-                alt=""
-                className="object-cover w-full h-full"
-              />
+          {/* Imagenes */}
+          <div className="w-full col-span-3 mx-auto">
+            <div className="w-full border border-white shadow-2xl carousel shadow-black">
+              <div id="slide1" className="relative w-full carousel-item">
+                <img
+                  src={propiedad.img_portada}
+                  className="w-full h-[400px] object-cover"
+                />
+                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                  <a href="#slide4" className="btn btn-circle">
+                    ❮
+                  </a>
+                  <a href="#slide2" className="btn btn-circle">
+                    ❯
+                  </a>
+                </div>
+              </div>
+              <div id="slide2" className="relative w-full carousel-item">
+                <img
+                  src={propiedad.img_habitacion}
+                  className="w-full h-[400px] object-cover"
+                />
+                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                  <a href="#slide1" className="btn btn-circle">
+                    ❮
+                  </a>
+                  <a href="#slide3" className="btn btn-circle">
+                    ❯
+                  </a>
+                </div>
+              </div>
+              <div id="slide3" className="relative w-full carousel-item">
+                <img
+                  src={propiedad.img_banio}
+                  className="w-full h-[400px] object-cover"
+                />
+                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                  <a href="#slide2" className="btn btn-circle">
+                    ❮
+                  </a>
+                  <a href="#slide4" className="btn btn-circle">
+                    ❯
+                  </a>
+                </div>
+              </div>
+              <div id="slide4" className="relative w-full carousel-item">
+                <img
+                  src={propiedad.img_comedor}
+                  className="w-full h-[400px] object-cover"
+                />
+                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                  <a href="#slide3" className="btn btn-circle">
+                    ❮
+                  </a>
+                  <a href="#slide1" className="btn btn-circle">
+                    ❯
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
           {/* Contenido principal */}
           <div className="grid w-full grid-cols-1 md:grid-cols-3">
-            <div className="md:col-span-2">
+            <div className="p-5 md:col-span-2">
               <h1 className="mt-5 text-xl font-bold text-center md:text-3xl text-primary">
                 {propiedad.nombre}
               </h1>
@@ -91,7 +130,7 @@ export const PropiedadesPreview = () => {
                 {propiedad.provincia}, {propiedad.localidad}
               </p>
 
-              <p className="mt-5 text-xl font-bold text-center md:text-3xl text-primary">
+              <p className="mt-5 text-xl font-bold text-center text-white md:text-3xl">
                 Acerca de esta propiedad
               </p>
               <p className="text-xl text-center md:text-3xl">
@@ -100,7 +139,7 @@ export const PropiedadesPreview = () => {
 
               {/* Contenido adicional */}
 
-              <p className="mt-5 text-xl font-bold text-center md:text-3xl text-primary">
+              <p className="mt-5 text-xl font-bold text-center text-white md:text-3xl">
                 ¿Que ofrece esta propiedad?
               </p>
 
@@ -117,9 +156,10 @@ export const PropiedadesPreview = () => {
               </ul>
             </div>
 
+            {/* Sidebar */}
             <div className="col-span-1 mx-auto mt-5 md:col-span-1 md:mt-0">
               <div className="sticky mt-5 mb-5 top-20">
-                <div className="shadow-xl card bg-base-100">
+                <div className="border shadow-lg card bg-base-100 border-base-500 shadow-black">
                   <div className="card-body">
                     <h1 className="text-xl font-bold md:text-3xl card-title text-primary">
                       ${propiedad.precio} USD por noche
@@ -206,6 +246,6 @@ export const PropiedadesPreview = () => {
           </div>
         </div>
       ) : null}
-    </div>
+    </>
   );
 };

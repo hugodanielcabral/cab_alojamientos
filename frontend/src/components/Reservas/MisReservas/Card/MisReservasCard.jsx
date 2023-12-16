@@ -1,5 +1,6 @@
 import React from "react";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 export const MisReservasCard = ({ reservas, deleteReserva }) => {
   // Función para formatear la fecha
@@ -14,10 +15,17 @@ export const MisReservasCard = ({ reservas, deleteReserva }) => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-4 mt-5">
-      {reservas ? (
+    <div
+      className={`grid w-full gap-4 ${
+        reservas.length === 1 ? "justify-items-center" : "md:grid-cols-2"
+      }`}
+    >
+      {reservas.length !== 0 ? (
         reservas.map((el, index) => (
-          <div className="mb-5 shadow-xl bg-base-100 max-h-[400px]" key={index}>
+          <div
+            className="mb-5 shadow-xl shadow-black bg-base-100 max-h-[400px] w-full md:w-3/4 mt-5 justify-self-center"
+            key={index}
+          >
             <figure className="h-48 overflow-hidden">
               <img
                 src={el.portada}
@@ -60,7 +68,12 @@ export const MisReservasCard = ({ reservas, deleteReserva }) => {
           </div>
         ))
       ) : (
-        <div>No hay propiedades</div>
+        <div className="flex flex-col items-center justify-center col-span-2 mt-28">
+          <h1 className="mb-5 text-3xl font-bold">Aún no tienes reservas</h1>
+          <Link to="/mis-reservas" className="btn btn-primary">
+            Explora las propiedades
+          </Link>
+        </div>
       )}
     </div>
   );

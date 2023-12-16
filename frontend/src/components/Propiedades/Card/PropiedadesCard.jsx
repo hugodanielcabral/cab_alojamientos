@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export const PropiedadesCard = ({ propiedades, categoria }) => {
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">
       {categoria === "Todos" ? (
         propiedades.map((el, index) => (
           <Link to={`/propiedades/${el.propiedad_id}`} key={index}>

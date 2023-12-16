@@ -4,11 +4,17 @@ import Swal from "sweetalert2";
 export const MisPropiedadesCard = ({ propiedadesByUser, deletePropiedad }) => {
   const navigate = useNavigate();
   return (
-    <div className="grid w-full grid-cols-2 gap-4">
+    <div
+      className={`grid w-full gap-4 ${
+        propiedadesByUser.length === 1
+          ? "justify-items-center"
+          : "md:grid-cols-2"
+      } justify-items-center`}
+    >
       {propiedadesByUser ? (
         propiedadesByUser.map((el, index) => (
           <div
-            className="mb-5 shadow-xl bg-base-100 max-h-[400px] mt-5"
+            className="mb-5 shadow-xl shadow-black bg-base-100 max-h-[400px] w-full md:w-3/4 mt-5 justify-self-center"
             key={index}
           >
             <figure className="h-48 overflow-hidden">
@@ -60,26 +66,13 @@ export const MisPropiedadesCard = ({ propiedadesByUser, deletePropiedad }) => {
           </div>
         ))
       ) : (
-        <div
-          className="w-full min-h-screen col-span-2 hero bg-base-200"
-          style={{
-            backgroundImage:
-              "url(https://th.bing.com/th/id/OIG.zAM9.0IR3wzAC4MrPDvg?pid=ImgGn)",
-          }}
-        >
-          <div className="hero-overlay bg-opacity-60"></div>
-          <div className="text-center hero-content text-neutral-content">
-            <div className="max-w-md">
-              <h1 className="mb-5 text-5xl font-bold">No tienes propiedades</h1>
-              <p className="mb-5">
-                Parece que aun no publicaste ninguna propiedad. Crea una para
-                comenzar:
-              </p>
-              <Link to={"/registro-propiedad"} className="btn btn-primary">
-                Crea una ahora mismo
-              </Link>
-            </div>
-          </div>
+        <div className="flex flex-col items-center col-span-2 mt-28">
+          <h1 className="mb-5 text-3xl font-bold">
+            Aún no tienes propiedades publicadas
+          </h1>
+          <Link to="/registro-propiedad" className="btn btn-primary">
+            Registra una propiedad
+          </Link>
         </div>
       )}
     </div>

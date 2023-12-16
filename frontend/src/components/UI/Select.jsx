@@ -18,7 +18,7 @@ export const Select = (props) => {
         </select>
       ) : (
         <select
-          className="w-full max-w-xs select select-bordered select-error"
+          className="w-full max-w-xs select select-bordered select-error bg-[#212d30] shadow-lg shadow-black"
           {...props}
         >
           {props.children}

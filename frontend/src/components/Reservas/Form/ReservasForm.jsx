@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
 import { Button, Input, Label, DatePickerUI } from "../../UI/index";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useReservas } from "../../../context/ReservasContext.jsx";
 import { usePropiedades } from "../../../context/PropiedadesContext.jsx";
+import Swal from "sweetalert2";
 
 export const ReservasForm = ({ startDate, endDate }) => {
   const { id } = useParams();
   const { createReserva, errors } = useReservas();
   const [propiedad, setPropiedad] = useState([]);
   const { getPropiedad } = usePropiedades();
+
+  const navigate = useNavigate();
 
   if (!startDate || !endDate) {
     return (window.location.href = "/");
@@ -33,6 +36,17 @@ export const ReservasForm = ({ startDate, endDate }) => {
     try {
       const response = await createReserva(formValues);
       console.log(response);
+      if (response) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Reserva creada exitosamente",
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => {
+          navigate("/mis-reservas");
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -134,7 +148,12 @@ export const ReservasForm = ({ startDate, endDate }) => {
           />
         </Label>
         <div className="w-3/4 mt-6 form-control">
-          <Button type="submit">Pagar</Button>
+          <Button
+            type="submit"
+            className="btn btn-[#212D30] mb-5 border border-white"
+          >
+            Pagar
+          </Button>
         </div>
       </form>
     </div>

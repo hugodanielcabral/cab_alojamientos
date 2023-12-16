@@ -38,6 +38,7 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data);
       setIsAuth(true);
       localStorage.setItem("online", true);
+      localStorage.setItem("user", JSON.stringify(response.data));
       return response.data;
     } catch (error) {
       setErrors(error.response.data.errors);
@@ -50,6 +51,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setIsAuth(false);
     localStorage.clear("online");
+    localStorage.clear("user");
   };
 
   const profile = async () => {

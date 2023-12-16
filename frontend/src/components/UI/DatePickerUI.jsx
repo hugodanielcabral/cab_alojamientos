@@ -14,12 +14,12 @@ export const DatePickerUI = (props) => {
     <>
       {!findError() ? (
         <DatePicker
-          className="w-full max-w-xs input input-bordered"
+          className="w-full max-w-xs input input-bordered bg-[#212d30] shadow-lg shadow-black border-white"
           {...props}
         />
       ) : (
         <DatePicker
-          className="w-full max-w-xs input input-bordered input-error"
+          className="w-full max-w-xs input input-bordered input-error bg-[#212d30] shadow-lg shadow-black"
           {...props}
         />
       )}

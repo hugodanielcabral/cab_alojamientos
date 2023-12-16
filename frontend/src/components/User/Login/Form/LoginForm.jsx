@@ -35,17 +35,15 @@ export const LoginForm = () => {
       console.log(error);
     }
   };
+
+  const getErrorMessage = (errors, path) => {
+    if (!errors) return null;
+    const error = errors.find((error) => error.path === path);
+    return error ? error.msg : null;
+  };
   return (
     <div className="relative flex items-center justify-center">
       <Card>
-        {errors &&
-          errors.map((error, index) => {
-            return (
-              <p key={index} className="font-bold text-center text-red-600">
-                {error.msg}
-              </p>
-            );
-          })}
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
           <Label htmlFor="email">Correo</Label>

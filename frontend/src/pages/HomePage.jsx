@@ -5,9 +5,9 @@ const img = [
 ];
 export const HomePage = () => {
   return (
-    <div className="flex flex-col w-full bg-accent-content">
+    <div className="flex flex-col w-full">
       <div
-        className="min-h-screen hero"
+        className="min-h-screen bg-center bg-cover shadow-sm hero shadow-black"
         style={{
           backgroundImage: img[Math.floor(Math.random() * img.length)],
         }}
@@ -22,8 +22,50 @@ export const HomePage = () => {
           </div>
         </div>
       </div>
-      <div className="mt-5 text-3xl text-center bg-accent-content">
+      <div className="mt-5 text-3xl text-center ">
         <h2>Descubre tu próximo nuevo destino</h2>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet rem
+          dolorum voluptatibus reprehenderit, harum delectus tempore adipisci
+          minima maxime praesentium ex labore consectetur alias illo enim omnis
+          incidunt laboriosam illum!
+        </p>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet rem
+          dolorum voluptatibus reprehenderit, harum delectus tempore adipisci
+          minima maxime praesentium ex labore consectetur alias illo enim omnis
+          incidunt laboriosam illum!
+        </p>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet rem
+          dolorum voluptatibus reprehenderit, harum delectus tempore adipisci
+          minima maxime praesentium ex labore consectetur alias illo enim omnis
+          incidunt laboriosam illum!
+        </p>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet rem
+          dolorum voluptatibus reprehenderit, harum delectus tempore adipisci
+          minima maxime praesentium ex labore consectetur alias illo enim omnis
+          incidunt laboriosam illum!
+        </p>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet rem
+          dolorum voluptatibus reprehenderit, harum delectus tempore adipisci
+          minima maxime praesentium ex labore consectetur alias illo enim omnis
+          incidunt laboriosam illum!
+        </p>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet rem
+          dolorum voluptatibus reprehenderit, harum delectus tempore adipisci
+          minima maxime praesentium ex labore consectetur alias illo enim omnis
+          incidunt laboriosam illum!
+        </p>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet rem
+          dolorum voluptatibus reprehenderit, harum delectus tempore adipisci
+          minima maxime praesentium ex labore consectetur alias illo enim omnis
+          incidunt laboriosam illum!
+        </p>
       </div>
     </div>
   );

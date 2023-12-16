@@ -22,9 +22,12 @@ export const MisPropiedades = () => {
   }, [propiedades]);
 
   return (
-    <MisPropiedadesCard
-      propiedadesByUser={propiedadesByUser}
-      deletePropiedad={deletePropiedad}
-    />
+    <div className="flex flex-col w-3/4">
+      <h1 className="text-3xl text-center">Mis Propiedades</h1>
+      <MisPropiedadesCard
+        propiedadesByUser={propiedadesByUser}
+        deletePropiedad={deletePropiedad}
+      />
+    </div>
   );
 };

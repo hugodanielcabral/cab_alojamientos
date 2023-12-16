@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Button, Card, Input, Label, Select } from "../../../UI/index.js";
+import { Button, Input, Label, Select } from "../../../UI/index.js";
 import { LiaEyeSolid, LiaEyeSlashSolid } from "react-icons/lia";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../context/AuthContext.jsx";
 import { arreglo_paises } from "../../../../data/index.js";
@@ -25,21 +24,6 @@ export const RegisterForm = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
-  };
-
-  const createUser = async () => {
-    const response = axios.post("http://localhost:3000/api/signup", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: {
-        nombre: nombre,
-        correo: formValues.email,
-        contrasena: formValues.contrasena,
-        pais: pais,
-        rol: rol,
-      },
-    });
   };
 
   const handleSubmit = async (e) => {
@@ -84,82 +68,109 @@ export const RegisterForm = () => {
     }
   };
 
+  const getErrorMessage = (errors, path) => {
+    if (!errors) return null;
+    const error = errors.find((error) => error.path === path);
+    return error ? error.msg : null;
+  };
+
   return (
-    <div className="flex items-center justify-center">
-      <Card>
-        {errors && (
-          <div className="text-red-500">
-            {errors.map((error, index) => (
-              <p key={index}>{error.msg}</p>
-            ))}
+    <div className="h-full p-10 lg:px-28 mb-10 mt-10 bg-[#06657F] border shadow-black shadow-xl rounded-xl ">
+      <h1 className="text-3xl text-center pointer-events-none">Registrate</h1>
+      <form onSubmit={handleSubmit}>
+        <Label>
+          <div className="label">
+            <span className="text-lg text-white label-text">Nombre</span>
           </div>
-        )}
-        <h1>Formulario</h1>
-        <form onSubmit={handleSubmit}>
-          <Label htmlFor="nombre">Nombre</Label>
           <Input
-            type="text"
             name="nombre"
             id="nombre"
             onChange={handleChange}
             value={formValues.nombre}
-            placeholder="Ingresa tu nombre"
-            required
+            autoComplete="off"
           />
-          <Label htmlFor="email">Correo</Label>
+          <p className="mt-3 text-sm font-bold text-center text-red-500">
+            {getErrorMessage(errors, "nombre")}
+          </p>
+        </Label>
+        <Label>
+          <div className="label">
+            <span className="text-lg text-white label-text">Correo</span>
+          </div>
           <Input
             type="email"
             name="email"
             id="email"
             onChange={handleChange}
             value={formValues.email}
-            placeholder="Ingresa tu correo"
-            required
           />
-          <Label htmlFor="contrasena">Contraseña</Label>
+          <p className="mt-3 text-sm font-bold text-center text-red-500">
+            {getErrorMessage(errors, "correo")}
+          </p>
+        </Label>
+        <Label>
+          <label className="label"></label>
+          <div className="label">
+            <span className="text-lg text-white label-text">Contraseña</span>
+          </div>
           <div className="relative">
+            <Button
+              className={
+                errors
+                  ? "absolute bottom-23 right-0 flex items-center pr-3 text-2xl text-white"
+                  : "absolute inset-y-0 right-0 flex items-center pr-3 text-2xl text-white"
+              }
+              type="button"
+              onClick={toggleContrasena}
+            >
+              {!showContrasena ? <LiaEyeSolid /> : <LiaEyeSlashSolid />}
+            </Button>
             <Input
               type={!showContrasena ? "password" : "text"}
               name="contrasena"
               id="contrasena"
               onChange={handleChange}
               value={formValues.contrasena}
-              placeholder="Ingresa tu contraseña"
-              required
             />
-            <Select
-              name="pais"
-              id="pais"
-              onChange={handleChange}
-              value={formValues.pais}
-              required
-              className="w-full max-w-xs my-3 select select-bordered"
-            >
-              <option value="">Pais</option>
-              {arreglo_paises.map((pais) => (
-                <option key={pais} value={pais}>
-                  {pais}
-                </option>
-              ))}
-            </Select>
-
-            <Button
-              className="absolute inset-y-0 right-0 flex items-center pr-3 text-2xl text-black"
-              type="button"
-              onClick={toggleContrasena}
-            >
-              {!showContrasena ? <LiaEyeSolid /> : <LiaEyeSlashSolid />}
-            </Button>
+            <p className="mt-3 text-sm font-bold text-center text-red-500">
+              {getErrorMessage(errors, "contrasena")}
+            </p>
           </div>
-          <Button type="submit">Registrarse</Button>
-          <div className="flex justify-between my-4">
-            <p>Ya tienes una cuenta?</p>
-            <Link to="/login" className="font-bold underline">
-              Inicia sesion
-            </Link>
+        </Label>
+        <Label>
+          <div className="label">
+            <span className="text-lg text-white label-text">Pais</span>
           </div>
-        </form>
-      </Card>
+          <Select
+            name="pais"
+            id="pais"
+            onChange={handleChange}
+            value={formValues.pais}
+          >
+            <option value="">Pais</option>
+            {arreglo_paises.map((pais) => (
+              <option key={pais} value={pais}>
+                {pais}
+              </option>
+            ))}
+          </Select>
+          <p className="mt-3 text-sm font-bold text-center text-red-500">
+            {getErrorMessage(errors, "pais")}
+          </p>
+        </Label>
+        <Button
+          type="submit"
+          className="btn btn-[#212D30] mb-5 border border-white mt-5 w-full text-xl text-white"
+        >
+          Registrarse
+        </Button>
+        <div className="flex justify-between my-4">
+          <p>Ya tienes una cuenta?</p>
+          <Link to="/login" className="font-bold underline">
+            Inicia sesion
+          </Link>
+        </div>
+      </form>
     </div>
   );
 };
