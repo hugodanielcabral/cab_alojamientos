@@ -66,96 +66,102 @@ export const ReservasForm = ({ startDate, endDate }) => {
   }, []);
 
   return (
-    <div className="grid grid-cols-6 gap-1">
-      <div className="flex flex-col items-center justify-center col-span-6 grid-rows-1">
-        <h1 className="mb-6 text-3xl font-bold text-center text-primary">
+    <div className="grid grid-cols-1 gap-1">
+      <div className="flex flex-col items-center justify-center text-center">
+        <h1 className="mb-6 text-3xl font-bold text-primary">
           Confirmá y pagá
         </h1>
-        <h3 className="text-2xl font-bold text-center text text-secondary">
-          Reglas basicas
-        </h3>
+        <h3 className="text-2xl font-bold text-secondary">Reglas básicas</h3>
         <h4>
           Les pedimos a todos los huéspedes que tengan en cuenta algunos
           detalles que hacen que un huésped sea excelente.
         </h4>
         <ul className="list-disc">
-          <li>Seguí normas de la casa.</li>
-          <li>Tratá el alojamiento de tu anfitrión como si fuera tu casa</li>
+          <p>Seguí normas de la casa.</p>
+          <p>Tratá el alojamiento de tu anfitrión como si fuera tu casa.</p>
         </ul>
       </div>
-      <div className="col-span-3">
-        <h2 className="text-2xl font-bold text-secondary">
-          Información de la reserva
-        </h2>
-        <p className="mt-2 font-bold">Fechas</p>
-        <p>Desde: {startDate.toLocaleDateString()}</p>
-        <p>Hasta: {endDate.toLocaleDateString()}</p>
-        <p className="mt-2 font-bold">Costo</p>
-        <p>
-          Total a pagar: $
-          {Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) *
-            propiedad.precio}{" "}
-          USD
-        </p>
-        <p className="mt-2 font-bold">Propiedad</p>
-        <p>{propiedad.nombre}</p>
-        <div className="avatar">
-          <div className="w-24 rounded">
-            <Link to={`/propiedades/${id}`}>
-              <img src={propiedad.img_portada} />
-            </Link>
+      <div>
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-secondary">
+            Información de la reserva
+          </h2>
+          <p className="mt-2 font-bold">Fechas</p>
+          <p>Desde: {startDate.toLocaleDateString()}</p>
+          <p>Hasta: {endDate.toLocaleDateString()}</p>
+        </div>
+        <div className="text-center">
+          <p className="mt-2 font-bold">Costo</p>
+          <p>
+            Total a pagar: $
+            {Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) *
+              propiedad.precio}{" "}
+            USD
+          </p>
+        </div>
+        <div className="text-center">
+          <p className="mt-2 font-bold">Propiedad</p>
+          <p>{propiedad.nombre}</p>
+          <div className="avatar">
+            <div className="w-24 rounded">
+              <Link to={`/propiedades/${id}`}>
+                <img src={propiedad.img_portada} />
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-      <form onSubmit={handleSubmit} className="col-span-3">
-        <h3 className="text-2xl font-bold text text-secondary">
-          Información de la tarjeta
-        </h3>
-        <Label>
-          <div className="label">
-            <span className="label-text">Número de tarjeta</span>
-          </div>
-          <Input
-            onChange={handleChange}
-            value={formValues.tarjeta.trim()}
-            name="tarjeta"
-            id="tarjeta"
+      <div className="items-center justify-center card">
+        <form onSubmit={handleSubmit} className="justify-center card-body">
+          <h3 className="text-2xl font-bold text-secondary">
+            Información de la tarjeta
+          </h3>
+          <Label>
+            <div className="label">
+              <span className="label-text">Número de tarjeta</span>
+            </div>
+            <Input
+              onChange={handleChange}
+              value={formValues.tarjeta.trim()}
+              name="tarjeta"
+              id="tarjeta"
+              errors={errors}
+            />
+          </Label>
+          <label htmlFor="vencimiento" className="block label">
+            <span className="label-text">Fecha de vencimiento</span>
+          </label>
+          <DatePickerUI
+            onChange={(date) =>
+              setFormValues({ ...formValues, vencimiento: date })
+            }
+            selected={formValues.vencimiento}
+            name="vencimiento"
+            id="vencimiento"
             errors={errors}
           />
-        </Label>
-        <label htmlFor="vencimiento" className="block label">
-          <span className="label-text">Fecha de vencimiento</span>
-        </label>
-        <DatePickerUI
-          onChange={(date) =>
-            setFormValues({ ...formValues, vencimiento: date })
-          }
-          selected={formValues.vencimiento}
-          name="vencimiento"
-          id="vencimiento"
-          errors={errors}
-        />
-        <Label>
-          <div className="label">
-            <span className="label-text">CVV</span>
+          <Label>
+            <div className="label">
+              <span className="label-text">CVV</span>
+            </div>
+            <Input
+              onChange={handleChange}
+              value={formValues.cvv}
+              name="cvv"
+              id="cvv"
+              errors={errors}
+            />
+          </Label>
+          <div className="w-3/4 mt-6 form-control">
+            <Button
+              type="submit"
+              className="btn btn-[#212D30] mb-5 border border-white"
+            >
+              Pagar
+            </Button>
           </div>
-          <Input
-            onChange={handleChange}
-            value={formValues.cvv}
-            name="cvv"
-            id="cvv"
-            errors={errors}
-          />
-        </Label>
-        <div className="w-3/4 mt-6 form-control">
-          <Button
-            type="submit"
-            className="btn btn-[#212D30] mb-5 border border-white"
-          >
-            Pagar
-          </Button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };

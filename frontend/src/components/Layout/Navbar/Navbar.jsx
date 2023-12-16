@@ -55,7 +55,10 @@ export const Navbar = () => {
                   ))}
             </ul>
           </div>
-          <Link to={"/"} className="text-xl btn btn-ghost">
+          <Link
+            to={"/"}
+            className="hidden lg:text-xl lg:btn lg:btn-ghost lg:flex"
+          >
             DonC Alojamientos
           </Link>
         </div>

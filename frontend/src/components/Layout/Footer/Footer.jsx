@@ -5,7 +5,7 @@ export const Footer = () => {
         <img
           src="https://th.bing.com/th/id/OIG.G7ltO1sdXV7HSZCtBPG2?w=1024&h=1024&rs=1&pid=ImgDetMain"
           alt=""
-          className="w-32 rounded-full shadow-2xl shadow-black"
+          className="w-32 mx-auto rounded-full shadow-2xl shadow-black "
         />
         <p className="text-secondary">DonC Alojamientos</p>
         <p>Brindando servicios en el mundo desde 2023</p>

@@ -22,7 +22,7 @@ export const MisPropiedades = () => {
   }, [propiedades]);
 
   return (
-    <div className="flex flex-col w-3/4">
+    <div className="flex flex-col w-full">
       <h1 className="text-3xl text-center">Mis Propiedades</h1>
       <MisPropiedadesCard
         propiedadesByUser={propiedadesByUser}

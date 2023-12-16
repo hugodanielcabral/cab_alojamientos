@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Card, Input, Label } from "../../../UI";
+import { Button, Input, Label } from "../../../UI";
 import { LiaEyeSolid, LiaEyeSlashSolid } from "react-icons/lia";
 import { useAuth } from "../../../../context/AuthContext";
+import Swal from "sweetalert2";
 
 export const LoginForm = () => {
   const { signin, errors } = useAuth();
@@ -30,7 +31,21 @@ export const LoginForm = () => {
     try {
       const user = await signin(data);
 
-      if (user) navigate("/");
+      if (user) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `Bienvenido ${user.nombre}`,
+          showConfirmButton: true,
+          timer: 2500,
+          background: "#06657F",
+          color: "white",
+          iconColor: "white",
+          backdrop: "rgba(0,0,0,0.5)",
+        }).then(() => {
+          navigate("/");
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -42,11 +57,15 @@ export const LoginForm = () => {
     return error ? error.msg : null;
   };
   return (
-    <div className="relative flex items-center justify-center">
-      <Card>
-        <h1>Login</h1>
-        <form onSubmit={handleSubmit}>
-          <Label htmlFor="email">Correo</Label>
+    <div className="h-full p-10 lg:px-28 mb-10 mt-10 bg-[#06657F] border shadow-black shadow-xl rounded-xl ">
+      <h1 className="text-3xl text-center pointer-events-none">
+        Iniciar Sesion
+      </h1>
+      <form onSubmit={handleSubmit}>
+        <Label>
+          <div className="label">
+            <span className="text-lg text-white label-text">Correo</span>
+          </div>
           <Input
             type="email"
             name="email"
@@ -54,9 +73,14 @@ export const LoginForm = () => {
             onChange={handleChange}
             value={formValues.email}
             placeholder="Ingresa tu correo"
-            required
           />
-          <Label htmlFor="contrasena">Contraseña</Label>
+          <p className="mt-3 text-sm font-bold text-center text-red-500">
+            {getErrorMessage(errors, "correo")}
+          </p>
+        </Label>
+        <br />
+        <Label>
+          <span className="text-lg text-white label-text">Contraseña</span>
           <div className="relative">
             <Input
               type={!showContrasena ? "password" : "text"}
@@ -65,26 +89,37 @@ export const LoginForm = () => {
               onChange={handleChange}
               value={formValues.contrasena}
               placeholder="Ingresa tu contraseña"
-              required
             />
 
             <Button
-              className="absolute inset-y-0 right-0 flex items-center pr-3 text-2xl text-black"
+              className={
+                errors
+                  ? "absolute bottom-10 right-0 flex items-center pr-3 text-2xl text-white"
+                  : "absolute bottom-6 right-0 flex items-center pr-3 text-2xl text-white"
+              }
               type="button"
               onClick={toggleContrasena}
             >
               {!showContrasena ? <LiaEyeSolid /> : <LiaEyeSlashSolid />}
             </Button>
+            <p className="mt-3 text-sm font-bold text-center text-red-500">
+              {getErrorMessage(errors, "contrasena")}
+            </p>
           </div>
-          <Button type="submit">Ingresar</Button>
-          <div className="flex justify-between my-4">
-            <p>¿No tienes una cuenta?</p>
-            <Link to="/register" className="font-bold underline">
-              Registrate
-            </Link>
-          </div>
-        </form>
-      </Card>
+        </Label>
+        <Button
+          type="submit"
+          className="btn btn-[#212D30] mb-5 border border-white mt-5 w-full text-xl text-white"
+        >
+          Ingresar
+        </Button>
+        <div className="flex justify-between my-4">
+          <p>¿No tienes una cuenta?</p>
+          <Link to="/register" className="font-bold underline">
+            Registrate
+          </Link>
+        </div>
+      </form>
     </div>
   );
 };

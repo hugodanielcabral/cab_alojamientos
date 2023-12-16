@@ -22,34 +22,47 @@ export const PropiedadesCategorias = ({ setCategoria }) => {
       name: "Camping",
       icon: "https://a0.muscache.com/pictures/ca25c7f3-0d1f-432b-9efa-b9f5dc6d8770.jpg",
     },
-    {
-      name: "Cuevas",
-      icon: "https://a0.muscache.com/pictures/4221e293-4770-4ea8-a4fa-9972158d4004.jpg",
-    },
+
     {
       name: "Minicasas",
       icon: "https://a0.muscache.com/pictures/3271df99-f071-4ecf-9128-eb2d2b1f50f0.jpg",
-    },
-    {
-      name: "Casa de árbol",
-      icon: "https://a0.muscache.com/pictures/4d4a4eba-c7e4-43eb-9ce2-95e1d200d10e.jpg",
     },
   ];
 
   return (
     <div className="container flex justify-center navbar">
-      <div className="flex gap-10">
-        <ul className="menu menu-vertical lg:menu-horizontal bg-[#06657F] rounded-box">
+      <div className="right-0 dropdown dropdown-hover">
+        <label tabIndex="0" className="btn btn-ghost lg:hidden">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+          Categorias
+        </label>
+        <ul
+          tabIndex="0"
+          className="p-2 shadow dropdown-content menu bg-base-100 rounded-box w-52"
+        >
           {categorias.map((categoria, index) => (
             <li key={index}>
               <button
-                className="flex flex-col items-center p-2 text-xs btn btn-ghost" // Adjust padding and text size
+                className="flex flex-col items-center p-2 text-xs btn btn-ghost"
                 onClick={() => setCategoria(categoria.name)}
               >
                 <img
                   src={categoria.icon}
                   alt={categoria.name}
-                  className="w-8 h-8 mb-2" // Adjust image size
+                  className="w-8 h-8 mb-2"
                 />
                 <span>{categoria.name}</span>
               </button>
@@ -57,6 +70,23 @@ export const PropiedadesCategorias = ({ setCategoria }) => {
           ))}
         </ul>
       </div>
+      <ul className="hidden lg:flex gap-10 menu menu-horizontal bg-[#06657F] rounded-box">
+        {categorias.map((categoria, index) => (
+          <li key={index}>
+            <button
+              className="flex flex-col items-center p-2 text-xs btn btn-ghost"
+              onClick={() => setCategoria(categoria.name)}
+            >
+              <img
+                src={categoria.icon}
+                alt={categoria.name}
+                className="w-8 h-8 mb-2"
+              />
+              <span>{categoria.name}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

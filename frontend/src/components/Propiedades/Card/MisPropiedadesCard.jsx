@@ -6,7 +6,7 @@ export const MisPropiedadesCard = ({ propiedadesByUser, deletePropiedad }) => {
   return (
     <div
       className={`grid w-full gap-4 ${
-        propiedadesByUser.length === 1
+        propiedadesByUser && propiedadesByUser.length === 1
           ? "justify-items-center"
           : "md:grid-cols-2"
       } justify-items-center`}
@@ -67,7 +67,7 @@ export const MisPropiedadesCard = ({ propiedadesByUser, deletePropiedad }) => {
         ))
       ) : (
         <div className="flex flex-col items-center col-span-2 mt-28">
-          <h1 className="mb-5 text-3xl font-bold">
+          <h1 className="mb-5 text-3xl font-bold text-center">
             Aún no tienes propiedades publicadas
           </h1>
           <Link to="/registro-propiedad" className="btn btn-primary">

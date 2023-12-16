@@ -13,7 +13,7 @@ export const HomePage = () => {
         }}
       >
         <div className="hero-overlay bg-opacity-60"></div>
-        <div className="text-center hero-content text-neutral-content">
+        <div className="p-0 text-center hero-content text-neutral-content">
           <div className="max-w-md">
             <h1 className="mb-5 text-5xl font-bold text-secondary">
               DonC Alojamientos

@@ -10,13 +10,13 @@ export const Layout = ({ children }) => {
     <>
       <div className="relative">
         <Navbar />
-        <main className="relative z-10 flex justify-center min-h-screen">
+        <main className="relative z-10 flex justify-center min-h-[calc(80vh-10px)]">
           {children}
         </main>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 320"
-          className="absolute inset-0 md:h-full lg:h-full xl:h-full"
+          className="absolute inset-0 md:h-full xl:h-full"
         >
           <path fill="#1D232A" fillOpacity="1" d={svgPath} />
         </svg>

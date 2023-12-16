@@ -41,9 +41,13 @@ export const RegisterForm = () => {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "Usuario creado exitosamente",
-          showConfirmButton: false,
-          timer: 1500,
+          title: "Usuario registrado correctamente",
+          showConfirmButton: true,
+          timer: 2000,
+          background: "#06657F",
+          color: "white",
+          iconColor: "white",
+          backdrop: "rgba(0,0,0,0.5)",
         }).then(() => {
           navigate("/login");
         });
