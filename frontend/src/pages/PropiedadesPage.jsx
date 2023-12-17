@@ -24,7 +24,11 @@ export const PropiedadesPage = () => {
 
   return (
     <div className="flex flex-col w-3/4">
-      <PropiedadesCategorias setCategoria={setCategoria} />
+      <PropiedadesCategorias
+        setCategoria={setCategoria}
+        setPropiedades={setPropiedades}
+        propiedades={propiedades}
+      />
       <PropiedadesCard propiedades={propiedades} categoria={categoria} />
       {propiedades.length === 0 ? (
         <div className="mx-auto mt-10">

@@ -1,11 +1,29 @@
 import { Link, useLocation } from "react-router-dom";
-import { privateRoutes, publicRoutes, userRoutes } from "./navigation.js";
+import {
+  privateRoutes,
+  publicRoutes,
+  userRoutes,
+  adminRoutes,
+} from "./navigation.js";
 import { useAuth } from "../../../context/AuthContext";
 
 export const Navbar = () => {
   const location = useLocation();
   const { isAuth, signout, user } = useAuth();
   const isOnline = localStorage.getItem("online");
+  const userLS = JSON.parse(localStorage.getItem("user"));
+
+  const renderNavbar = () => {
+    if (isOnline) {
+      if (userLS.rol == "ADMIN") {
+        return adminRoutes;
+      } else {
+        return privateRoutes;
+      }
+    } else {
+      return publicRoutes;
+    }
+  };
 
   return (
     <>
@@ -32,27 +50,20 @@ export const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-              {isOnline
-                ? privateRoutes.map((el) => (
-                    <li
-                      key={el.name}
-                      className={
-                        location.pathname === el.path ? "bordered" : ""
-                      }
-                    >
-                      <Link to={el.path}>{el.name}</Link>
-                    </li>
-                  ))
-                : publicRoutes.map((el) => (
-                    <li
-                      key={el.name}
-                      className={
-                        location.pathname === el.path ? "bordered" : ""
-                      }
-                    >
-                      <Link to={el.path}>{el.name}</Link>
-                    </li>
-                  ))}
+              {renderNavbar().map((el, index) => (
+                <li
+                  key={index}
+                  className={location.pathname === el.path ? "bordered" : ""}
+                >
+                  {el.name == "Dashboard" || el.name == "Explora" ? (
+                    <Link to={el.path} className="text-secondary">
+                      {el.name}
+                    </Link>
+                  ) : (
+                    <Link to={el.path}>{el.name}</Link>
+                  )}
+                </li>
+              ))}
             </ul>
           </div>
           <Link
@@ -64,29 +75,20 @@ export const Navbar = () => {
         </div>
         <div className="hidden navbar-center lg:flex">
           <ul className="px-1 menu menu-horizontal">
-            {isOnline
-              ? privateRoutes.map((el) => (
-                  <li
-                    key={el.name}
-                    className={location.pathname === el.path ? "bordered" : ""}
-                  >
-                    {el.name === "Explora" ? (
-                      <Link to={el.path} className="font-bold text-secondary">
-                        {el.name}
-                      </Link>
-                    ) : (
-                      <Link to={el.path}>{el.name}</Link>
-                    )}
-                  </li>
-                ))
-              : publicRoutes.map((el) => (
-                  <li
-                    key={el.name}
-                    className={location.pathname === el.path ? "bordered" : ""}
-                  >
-                    <Link to={el.path}>{el.name}</Link>
-                  </li>
-                ))}
+            {renderNavbar().map((el, index) => (
+              <li
+                key={index}
+                className={location.pathname === el.path ? "bordered" : ""}
+              >
+                {el.name == "Dashboard" || el.name == "Explora" ? (
+                  <Link to={el.path} className="text-secondary">
+                    {el.name}
+                  </Link>
+                ) : (
+                  <Link to={el.path}>{el.name}</Link>
+                )}
+              </li>
+            ))}
           </ul>
         </div>
         <div className="navbar-end">

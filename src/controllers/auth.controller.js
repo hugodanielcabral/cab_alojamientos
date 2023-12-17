@@ -58,7 +58,7 @@ export const signup = async (req, res) => {
     const gravatar = `https://gravatar.com/avatar/${md5(correo)}?d=identicon`;
 
     const result = await pool.query(
-      "INSERT INTO usuarios ( nombre, correo, contrasena, pais, rol, avatar) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+      "INSERT INTO usuarios ( nombre, correo, contrasena, pais, rol, avatar, activo) VALUES ($1, $2, $3, $4, $5, $6, true) RETURNING *",
       [nombre, correo, hashedContrasena, pais, rol, gravatar]
     );
 

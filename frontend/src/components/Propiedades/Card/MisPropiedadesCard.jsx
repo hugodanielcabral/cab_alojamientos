@@ -47,16 +47,32 @@ export const MisPropiedadesCard = ({ propiedadesByUser, deletePropiedad }) => {
                       confirmButtonColor: "#3085d6",
                       cancelButtonColor: "#d33",
                       confirmButtonText: "Si, eliminar",
-                    }).then((result) => {
-                      if (result.isConfirmed) {
-                        deletePropiedad(el.propiedad_id);
-                        Swal.fire(
-                          "Eliminado!",
-                          "La propiedad ha sido eliminada.",
-                          "success"
-                        );
-                      }
                     })
+                      .then((result) => {
+                        if (result.isConfirmed) {
+                          const response = deletePropiedad(el.propiedad_id);
+                          return response;
+                        }
+                      })
+                      .then((response) => {
+                        if (response != null) {
+                          Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Propiedad eliminada correctamente",
+                            showConfirmButton: false,
+                            timer: 1500,
+                          });
+                        } else {
+                          Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: "Error al eliminar la propiedad",
+                            showConfirmButton: false,
+                            timer: 1500,
+                          });
+                        }
+                      })
                   }
                 >
                   Eliminar

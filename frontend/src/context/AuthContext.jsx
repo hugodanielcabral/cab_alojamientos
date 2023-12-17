@@ -39,6 +39,7 @@ export const AuthProvider = ({ children }) => {
       setIsAuth(true);
       localStorage.setItem("online", true);
       localStorage.setItem("user", JSON.stringify(response.data));
+
       return response.data;
     } catch (error) {
       setErrors(error.response.data.errors);

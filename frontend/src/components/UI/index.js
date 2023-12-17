@@ -4,3 +4,4 @@ export { Input } from "./Input";
 export { Label } from "./Label";
 export { Select } from "./Select";
 export { DatePickerUI } from "./DatePickerUI";
+export { Modal } from "./Modal";

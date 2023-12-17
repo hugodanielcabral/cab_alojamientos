@@ -7,6 +7,29 @@ export const getPropiedades = async (req, res, next) => {
 export const getPropiedad = async (req, res) => {
   const { id } = req.params;
   try {
+    if (id == "ASC") {
+      const result = await pool.query(
+        "SELECT * FROM propiedades ORDER BY precio ASC "
+      );
+
+      if (result.rowCount === 0) {
+        return res.status(404).json({
+          message: "Propiedad no encontrada",
+        });
+      }
+      res.json(result.rows);
+    } else if (id == "DESC") {
+      const result = await pool.query(
+        "SELECT * FROM propiedades ORDER BY precio DESC"
+      );
+
+      if (result.rowCount === 0) {
+        return res.status(404).json({
+          message: "Propiedad no encontrada",
+        });
+      }
+      res.json(result.rows);
+    }
     const result = await pool.query(
       "SELECT * FROM propiedades WHERE propiedad_id = $1",
       [id]
@@ -41,6 +64,28 @@ export const getPropiedadByUser = async (req, res) => {
       });
     }
 
+    res.json(result.rows);
+  } catch (error) {
+    return res.status(500).json({
+      message: "Ocurrio un error",
+      error: error.message,
+    });
+  }
+};
+
+export const getPropiedadesByPrecio = async (req, res) => {
+  const { tipo } = req.params;
+  try {
+    const result = await pool.query(
+      "SELECT * FROM propiedades ORDER BY precio $1",
+      [tipo]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({
+        message: "Propiedad no encontrada",
+      });
+    }
     res.json(result.rows);
   } catch (error) {
     return res.status(500).json({

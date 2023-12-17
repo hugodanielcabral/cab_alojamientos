@@ -70,7 +70,7 @@ export const MisReservasCard = ({ reservas, deleteReserva }) => {
       ) : (
         <div className="flex flex-col items-center justify-center col-span-2 mt-28">
           <h1 className="mb-5 text-3xl font-bold">Aún no tienes reservas</h1>
-          <Link to="/mis-reservas" className="btn btn-primary">
+          <Link to="/propiedades" className="btn btn-primary">
             Explora las propiedades
           </Link>
         </div>

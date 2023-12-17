@@ -1,6 +1,10 @@
-import { Button } from "../../UI/index.js";
+import { Modal } from "../../UI/index.js";
 
-export const PropiedadesCategorias = ({ setCategoria }) => {
+export const PropiedadesCategorias = ({
+  setCategoria,
+  setPropiedades,
+  propiedades,
+}) => {
   const categorias = [
     {
       name: "Todos",
@@ -28,6 +32,20 @@ export const PropiedadesCategorias = ({ setCategoria }) => {
       icon: "https://a0.muscache.com/pictures/3271df99-f071-4ecf-9128-eb2d2b1f50f0.jpg",
     },
   ];
+
+  const ordenarPropiedadesCaras = () => {
+    const propiedadesOrdenadas = [...propiedades].sort(
+      (a, b) => b.precio - a.precio
+    );
+    setPropiedades(propiedadesOrdenadas);
+  };
+
+  const ordenarPropiedadesBaratas = () => {
+    const propiedadesOrdenadas = [...propiedades].sort(
+      (a, b) => a.precio - b.precio
+    );
+    setPropiedades(propiedadesOrdenadas);
+  };
 
   return (
     <div className="container flex justify-center navbar">
@@ -68,6 +86,13 @@ export const PropiedadesCategorias = ({ setCategoria }) => {
               </button>
             </li>
           ))}
+          <li className="mx-auto">
+            <Modal
+              ordenarPropiedadesCaras={ordenarPropiedadesCaras}
+              ordenarPropiedadesBaratas={ordenarPropiedadesBaratas}
+              id="modal-ordenar-propiedades-1"
+            />
+          </li>
         </ul>
       </div>
       <ul className="hidden lg:flex gap-10 menu menu-horizontal bg-[#06657F] rounded-box">
@@ -86,6 +111,13 @@ export const PropiedadesCategorias = ({ setCategoria }) => {
             </button>
           </li>
         ))}
+        <li>
+          <Modal
+            ordenarPropiedadesCaras={ordenarPropiedadesCaras}
+            ordenarPropiedadesBaratas={ordenarPropiedadesBaratas}
+            id="modal-ordenar-propiedades-2"
+          />
+        </li>
       </ul>
     </div>
   );

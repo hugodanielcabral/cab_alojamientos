@@ -55,7 +55,7 @@ export const ReservasProvider = ({ children }) => {
 
   useEffect(() => {
     getReservas();
-  }, [reservas]);
+  }, []);
 
   return (
     <ReservaContext.Provider

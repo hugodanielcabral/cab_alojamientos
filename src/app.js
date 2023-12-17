@@ -6,6 +6,7 @@ import cors from "cors";
 import propiedadesRoutes from "./routes/propiedades.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import reservasRoutes from "./routes/reservas.routes.js";
+import usuariosRoutes from "./routes/usuarios.routes.js";
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.get("/", (req, res) => {
 app.use("/api", propiedadesRoutes);
 app.use("/api", reservasRoutes);
 app.use("/api", authRoutes);
+app.use("/api", usuariosRoutes);
 
 // Error Handling
 app.use((error, req, res, next) => {
