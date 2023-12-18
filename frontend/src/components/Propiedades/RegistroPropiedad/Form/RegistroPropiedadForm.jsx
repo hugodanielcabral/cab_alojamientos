@@ -162,8 +162,8 @@ export const RegistroPropiedadForm = () => {
                 errors={errors}
               >
                 <option value="">Elige...</option>
-                {provincias_argentinas.map((provincia) => (
-                  <option key={provincia} value={provincia}>
+                {provincias_argentinas.map((provincia, index) => (
+                  <option key={index} value={provincia}>
                     {provincia}
                   </option>
                 ))}
@@ -193,8 +193,8 @@ export const RegistroPropiedadForm = () => {
                 errors={errors}
               >
                 <option value="">Elige...</option>
-                {categorias_propiedades.map((categoria) => (
-                  <option key={categoria} value={categoria}>
+                {categorias_propiedades.map((categoria, index) => (
+                  <option key={index} value={categoria}>
                     {categoria}
                   </option>
                 ))}

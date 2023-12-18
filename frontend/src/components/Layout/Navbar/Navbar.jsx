@@ -108,10 +108,10 @@ export const Navbar = () => {
                 className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
               >
                 {isAuth
-                  ? userRoutes.map((el) => (
+                  ? userRoutes.map((el, index) => (
                       <>
                         <li
-                          key={el.name}
+                          key={index}
                           className={
                             location.pathname === el.path ? "bordered" : ""
                           }

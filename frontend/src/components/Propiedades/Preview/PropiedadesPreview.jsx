@@ -3,7 +3,6 @@ import { usePropiedades } from "../../../context/PropiedadesContext";
 import { useEffect, useState } from "react";
 import { Button, DatePickerUI } from "../../UI/index.js";
 import axios from "../../../api/axios.js";
-import { useAuth } from "../../../context/AuthContext.jsx";
 
 const today = new Date();
 const tomorrow = new Date(today);
@@ -232,7 +231,9 @@ export const PropiedadesPreview = () => {
                         minDate={
                           startDate
                             ? new Date(
-                                startDate.setDate(startDate.getDate() + 1)
+                                new Date(startDate).setDate(
+                                  startDate.getDate() + 1
+                                )
                               )
                             : tomorrow
                         }

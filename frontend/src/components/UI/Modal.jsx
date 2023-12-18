@@ -11,9 +11,7 @@ export const Modal = (props) => {
       <dialog id={`${props.id}`} className="modal modal-bottom sm:modal-middle">
         <div className="flex flex-col modal-box">
           <h3 className="text-lg font-bold">Filtrar propiedades</h3>
-          <p className="mt-10 text-lg text-center" classNameName="text-lg">
-            Ordenar por precio
-          </p>
+          <p className="mt-10 text-lg text-center">Ordenar por precio</p>
           <div className="justify-center mt-5 card-actions">
             <Button onClick={props.ordenarPropiedadesCaras}>Más caras</Button>
             <Button onClick={props.ordenarPropiedadesBaratas}>

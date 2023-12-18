@@ -152,8 +152,8 @@ export const RegisterForm = () => {
             value={formValues.pais}
           >
             <option value="">Pais</option>
-            {arreglo_paises.map((pais) => (
-              <option key={pais} value={pais}>
+            {arreglo_paises.map((pais, index) => (
+              <option key={index} value={pais}>
                 {pais}
               </option>
             ))}
