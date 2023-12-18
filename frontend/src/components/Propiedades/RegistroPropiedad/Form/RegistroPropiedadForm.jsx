@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Label, Input, Button, Select } from "../../../UI/index.js";
+import { Label, Input, Button, Select, Textarea } from "../../../UI/index.js";
 import { usePropiedades } from "../../../../context/PropiedadesContext.jsx";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -142,7 +142,7 @@ export const RegistroPropiedadForm = () => {
                   Descripción
                 </span>
               </div>
-              <Input
+              <Textarea
                 onChange={handleChange}
                 value={formValues.descripcion}
                 name="descripcion"

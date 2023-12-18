@@ -5,3 +5,4 @@ export { Label } from "./Label";
 export { Select } from "./Select";
 export { DatePickerUI } from "./DatePickerUI";
 export { Modal } from "./Modal";
+export { Textarea } from "./Textarea";

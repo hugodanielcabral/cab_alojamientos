@@ -18,6 +18,12 @@ export const signin = async (req, res) => {
       });
     }
 
+    if (result.rows[0].activo === false) {
+      return res.status(403).json({
+        message: "Cuenta inactiva",
+      });
+    }
+
     const validContrasena = await bcrypt.compare(
       contrasena,
       result.rows[0].contrasena

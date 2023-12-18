@@ -1,6 +1,7 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import axios from "../api/axios.js";
 import Cookie from "js-cookie";
+import Swal from "sweetalert2";
 
 export const AuthContext = createContext();
 
@@ -42,8 +43,19 @@ export const AuthProvider = ({ children }) => {
 
       return response.data;
     } catch (error) {
-      setErrors(error.response.data.errors);
-      console.log(error.response.data.errors);
+      if (error.response) {
+        console.log(error.response.data.errors);
+        console.log(error.response.status);
+        if (error.response.status === 403) {
+          Swal.fire({
+            icon: "error",
+            title: "Tu usuario fue bloqueado",
+            text: "Por favor comunicate con el administrador",
+          });
+        }
+        console.log(error.response.headers);
+        setErrors(error.response.data.errors);
+      }
     }
   };
 
