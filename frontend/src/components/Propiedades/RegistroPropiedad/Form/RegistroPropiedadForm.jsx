@@ -111,6 +111,7 @@ export const RegistroPropiedadForm = () => {
         });
       });
     }
+    setErrors(null);
   }, []);
 
   return (

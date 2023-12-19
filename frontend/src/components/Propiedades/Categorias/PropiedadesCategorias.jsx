@@ -1,4 +1,5 @@
-import { Modal } from "../../UI/index.js";
+import { Modal, Button } from "../../UI/index.js";
+import { BiCategory } from "react-icons/bi";
 
 export const PropiedadesCategorias = ({
   setCategoria,
@@ -51,20 +52,7 @@ export const PropiedadesCategorias = ({
     <div className="container flex justify-center navbar">
       <div className="right-0 dropdown dropdown-hover">
         <label tabIndex="0" className="btn btn-ghost lg:hidden">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-5 h-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
+          <BiCategory className="w-8 h-8" />
           Categorias
         </label>
         <ul
@@ -87,11 +75,14 @@ export const PropiedadesCategorias = ({
             </li>
           ))}
           <li className="mx-auto">
-            <Modal
-              ordenarPropiedadesCaras={ordenarPropiedadesCaras}
-              ordenarPropiedadesBaratas={ordenarPropiedadesBaratas}
-              id="modal-ordenar-propiedades-1"
-            />
+            <Modal id="modal-ordenar-propiedades-1" title="Filtrar">
+              <h3 className="text-lg font-bold">Filtrar propiedades</h3>
+              <p className="mt-10 text-lg text-center">Ordenar por precio</p>
+              <div className="justify-center mt-5 card-actions">
+                <Button onClick={ordenarPropiedadesCaras}>Más caras</Button>
+                <Button onClick={ordenarPropiedadesBaratas}>Más baratas</Button>
+              </div>
+            </Modal>
           </li>
         </ul>
       </div>
@@ -112,11 +103,14 @@ export const PropiedadesCategorias = ({
           </li>
         ))}
         <li>
-          <Modal
-            ordenarPropiedadesCaras={ordenarPropiedadesCaras}
-            ordenarPropiedadesBaratas={ordenarPropiedadesBaratas}
-            id="modal-ordenar-propiedades-2"
-          />
+          <Modal id="modal-ordenar-propiedades-2" title="Filtrar">
+            <h3 className="text-lg font-bold">Filtrar propiedades</h3>
+            <p className="mt-10 text-lg text-center">Ordenar por precio</p>
+            <div className="justify-center mt-5 card-actions">
+              <Button onClick={ordenarPropiedadesCaras}>Más caras</Button>
+              <Button onClick={ordenarPropiedadesBaratas}>Más baratas</Button>
+            </div>
+          </Modal>
         </li>
       </ul>
     </div>

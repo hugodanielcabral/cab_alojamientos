@@ -6,3 +6,4 @@ export { Select } from "./Select";
 export { DatePickerUI } from "./DatePickerUI";
 export { Modal } from "./Modal";
 export { Textarea } from "./Textarea";
+export { Loading } from "./Loading";

@@ -65,6 +65,10 @@ export const AuthProvider = ({ children }) => {
     setIsAuth(false);
     localStorage.clear("online");
     localStorage.clear("user");
+    Swal.fire({
+      icon: "success",
+      title: "Sesion cerrada exitosamente",
+    });
   };
 
   const profile = async () => {
@@ -99,7 +103,16 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, isAuth, errors, signup, signin, signout, profile }}
+      value={{
+        user,
+        isAuth,
+        errors,
+        setErrors,
+        signup,
+        signin,
+        signout,
+        profile,
+      }}
     >
       {children}
     </AuthContext.Provider>

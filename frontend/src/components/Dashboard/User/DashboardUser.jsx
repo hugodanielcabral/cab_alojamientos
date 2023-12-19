@@ -52,7 +52,7 @@ export const DashboardUser = () => {
   };
 
   return (
-    <div className="flex flex-col items-center p-3">
+    <div className="flex-col items-center block p-3">
       <h1 className="mb-4 text-3xl font-bold">Listado de usuarios</h1>
       <DashboardUserBuscador
         users={users.data}

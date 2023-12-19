@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Input, Label, Select } from "../../../UI/index.js";
 import { LiaEyeSolid, LiaEyeSlashSolid } from "react-icons/lia";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import { arreglo_paises } from "../../../../data/index.js";
 import Swal from "sweetalert2";
 
 export const RegisterForm = () => {
-  const { signup, errors } = useAuth();
+  const { signup, errors, setErrors } = useAuth();
   const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
@@ -52,21 +52,6 @@ export const RegisterForm = () => {
           navigate("/login");
         });
       }
-      /* const response = await fetch("http://localhost:3000/api/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": true,
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          nombre: nombre,
-          correo: formValues.email,
-          contrasena: formValues.contrasena,
-          pais: pais,
-          rol: rol,
-        }),
-      }); */
     } catch (error) {
       console.log(error);
     }
@@ -77,6 +62,14 @@ export const RegisterForm = () => {
     const error = errors.find((error) => error.path === path);
     return error ? error.msg : null;
   };
+
+  const resetErrors = () => {
+    setErrors(null);
+  };
+
+  useEffect(() => {
+    resetErrors();
+  }, []);
 
   return (
     <div className="h-full p-10 lg:px-28 mb-10 mt-10 bg-[#06657F] border shadow-black shadow-xl rounded-xl ">

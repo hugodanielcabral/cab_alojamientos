@@ -24,7 +24,7 @@ export const DashboardTable = ({
   };
 
   return (
-    <div className="p-5 overflow-x-auto rounded-lg shadow bg-base-200 shadow-black ">
+    <div className="p-5 overflow-x-auto rounded-lg shadow bg-base-200 shadow-black pepe">
       <table className="table">
         <thead>
           <tr>

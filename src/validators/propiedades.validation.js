@@ -2,15 +2,31 @@ import { check } from "express-validator";
 import { validateResult } from "../libs/validationResult.js";
 
 export const validateCreate = [
-  check("nombre").exists().notEmpty(),
-  check("descripcion").exists().notEmpty(),
-  check("provincia").exists().notEmpty().isLength({ min: 1, max: 255 }),
-  check("localidad").exists().notEmpty().isLength({ min: 1, max: 255 }),
-  check("categoria").exists().notEmpty().isLength({ min: 1, max: 255 }),
+  check("nombre").exists().notEmpty().withMessage("El nombre es requerido"),
+  check("descripcion")
+    .exists()
+    .notEmpty()
+    .withMessage("La descripción es requerida"),
+  check("provincia")
+    .exists()
+    .notEmpty()
+    .withMessage("La provincia es requerida")
+    .isLength({ min: 1, max: 255 }),
+  check("localidad")
+    .exists()
+    .notEmpty()
+    .withMessage("La localidad es requerida")
+    .isLength({ min: 1, max: 255 }),
+  check("categoria")
+    .exists()
+    .notEmpty()
+    .withMessage("La categoria es requerida")
+    .isLength({ min: 1, max: 255 }),
   check("precio")
     .exists()
-    .isNumeric()
     .notEmpty()
+    .withMessage("El precio es requerido")
+    .isNumeric()
     .custom((value) => {
       if (value < 10 || value > 1000) {
         throw new Error("El precio debe estar entre 10 y 1000");
@@ -20,18 +36,21 @@ export const validateCreate = [
   check("cant_habitaciones")
     .exists()
     .notEmpty()
+    .withMessage("La cantidad de habitaciones es requerida")
     .isNumeric()
     .custom((value) => value >= 0)
     .withMessage("La cantidad de habitaciones no puede ser negativa"),
   check("cant_camas")
     .exists()
     .notEmpty()
+    .withMessage("La cantidad de camas es requerida")
     .isNumeric()
     .custom((value) => value >= 0)
     .withMessage("La cantidad de camas no puede ser negativa"),
   check("cant_banios")
     .exists()
     .notEmpty()
+    .withMessage("La cantidad de baños es requerida")
     .isNumeric()
     .custom((value) => value >= 0)
     .withMessage("La cantidad de baños no puede ser negativa"),
@@ -54,6 +73,7 @@ function createImageValidators() {
       check(field)
         .exists()
         .notEmpty()
+        .withMessage(`La imagen ${field} es requerida`)
         .custom((value) => {
           if (
             !value.startsWith("https://") ||

@@ -1,8 +1,14 @@
 import { useState, useEffect } from "react";
-import { Button, Input, Label, DatePickerUI } from "../../UI/index";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { Button, Input, Label, DatePickerUI, Modal } from "../../UI/index";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useReservas } from "../../../context/ReservasContext.jsx";
 import { usePropiedades } from "../../../context/PropiedadesContext.jsx";
+import {
+  FaCcMastercard,
+  FaCcVisa,
+  FaCcDiscover,
+  FaCcAmazonPay,
+} from "react-icons/fa";
 import Swal from "sweetalert2";
 
 export const ReservasForm = ({ startDate, endDate }) => {
@@ -10,6 +16,8 @@ export const ReservasForm = ({ startDate, endDate }) => {
   const { createReserva, errors } = useReservas();
   const [propiedad, setPropiedad] = useState([]);
   const { getPropiedad } = usePropiedades();
+
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const navigate = useNavigate();
 
@@ -66,101 +74,102 @@ export const ReservasForm = ({ startDate, endDate }) => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 gap-1">
-      <div className="flex flex-col items-center justify-center text-center">
-        <h1 className="mb-6 text-3xl font-bold text-primary">
-          Confirmá y pagá
-        </h1>
-        <h3 className="text-2xl font-bold text-secondary">Reglas básicas</h3>
-        <h4>
-          Les pedimos a todos los huéspedes que tengan en cuenta algunos
-          detalles que hacen que un huésped sea excelente.
-        </h4>
-        <ul className="list-disc">
-          <p>Seguí normas de la casa.</p>
-          <p>Tratá el alojamiento de tu anfitrión como si fuera tu casa.</p>
-        </ul>
-      </div>
-      <div>
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-secondary">
-            Información de la reserva
-          </h2>
-          <p className="mt-2 font-bold">Fechas</p>
-          <p>Desde: {startDate.toLocaleDateString()}</p>
-          <p>Hasta: {endDate.toLocaleDateString()}</p>
-        </div>
-        <div className="text-center">
-          <p className="mt-2 font-bold">Costo</p>
-          <p>
-            Total a pagar: $
-            {Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) *
-              propiedad.precio}{" "}
-            USD
-          </p>
-        </div>
-        <div className="text-center">
-          <p className="mt-2 font-bold">Propiedad</p>
-          <p>{propiedad.nombre}</p>
-          <div className="avatar">
-            <div className="w-24 rounded">
-              <Link to={`/propiedades/${id}`}>
-                <img src={propiedad.img_portada} />
-              </Link>
+    <div className="grid grid-cols-2 gap-4">
+      <h3 className="col-span-2 my-auto text-xl font-bold text-center lg:text-3xl">
+        {user.nombre}, estas a un paso de reservar una propiedad
+      </h3>
+      <div className="col-span-2 mx-auto">
+        <Modal
+          id="modal-reservas-form"
+          title="Información de la reserva"
+          className="relative z-10"
+        >
+          <h3 className="text-lg font-bold">Información de la reserva</h3>
+          <div>
+            <p className="mt-2 font-bold">Fechas</p>
+            <p>Desde: {startDate.toLocaleDateString()}</p>
+            <p>Hasta: {endDate.toLocaleDateString()}</p>
+          </div>
+          <div>
+            <p className="mt-2 font-bold">Costo</p>
+            <p>
+              Total a pagar: $
+              {Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) *
+                propiedad.precio}
+              USD
+            </p>
+          </div>
+          <div className="text-center">
+            <p className="mt-2 font-bold">Propiedad</p>
+            <p>{propiedad.nombre}</p>
+            <div className="avatar">
+              <div className="w-24 rounded">
+                <Link to={`/propiedades/${id}`}>
+                  <img src={propiedad.img_portada} />
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
+        </Modal>
       </div>
-      <div className="items-center justify-center card">
-        <form onSubmit={handleSubmit} className="justify-center card-body">
-          <h3 className="text-2xl font-bold text-secondary">
-            Información de la tarjeta
-          </h3>
-          <Label>
-            <div className="label">
-              <span className="label-text">Número de tarjeta</span>
+      <div className="col-span-2">
+        <div className="shadow-xl card bg-base-100 shadow-black h-[40rem] w-[23rem] justify-center items-center md:w-[40rem] mx-auto mb-5">
+          <form onSubmit={handleSubmit} className="justify-center card-body">
+            <h3 className="mt-5 text-2xl font-bold text-center text-secondary">
+              Información de la tarjeta
+            </h3>
+            <div className="flex gap-5 justify-evenly">
+              <FaCcMastercard size={60} className="text-warning" />
+              <FaCcVisa size={60} className="text-warning" />
+              <FaCcDiscover size={60} className="text-warning" />
+              <FaCcAmazonPay size={60} className="text-warning" />
             </div>
-            <Input
-              onChange={handleChange}
-              value={formValues.tarjeta.trim()}
-              name="tarjeta"
-              id="tarjeta"
+            <Label>
+              <div className="label">
+                <span className="label-text">Número de tarjeta</span>
+              </div>
+              <Input
+                onChange={handleChange}
+                value={formValues.tarjeta.trim()}
+                name="tarjeta"
+                id="tarjeta"
+                errors={errors}
+              />
+            </Label>
+            <label htmlFor="vencimiento" className="block label">
+              <span className="label-text">Fecha de vencimiento</span>
+            </label>
+            <DatePickerUI
+              onChange={(date) =>
+                setFormValues({ ...formValues, vencimiento: date })
+              }
+              selected={formValues.vencimiento}
+              name="vencimiento"
+              id="vencimiento"
               errors={errors}
             />
-          </Label>
-          <label htmlFor="vencimiento" className="block label">
-            <span className="label-text">Fecha de vencimiento</span>
-          </label>
-          <DatePickerUI
-            onChange={(date) =>
-              setFormValues({ ...formValues, vencimiento: date })
-            }
-            selected={formValues.vencimiento}
-            name="vencimiento"
-            id="vencimiento"
-            errors={errors}
-          />
-          <Label>
-            <div className="label">
-              <span className="label-text">CVV</span>
+            <Label>
+              <div className="label">
+                <span className="label-text">CVV</span>
+              </div>
+              <Input
+                onChange={handleChange}
+                value={formValues.cvv}
+                name="cvv"
+                id="cvv"
+                errors={errors}
+              />
+            </Label>
+            <div className="justify-center mt-6 form-control">
+              <Button
+                type="submit"
+                className="btn btn-[#212D30] mb-5 border border-white"
+              >
+                Pagar
+              </Button>
             </div>
-            <Input
-              onChange={handleChange}
-              value={formValues.cvv}
-              name="cvv"
-              id="cvv"
-              errors={errors}
-            />
-          </Label>
-          <div className="w-3/4 mt-6 form-control">
-            <Button
-              type="submit"
-              className="btn btn-[#212D30] mb-5 border border-white"
-            >
-              Pagar
-            </Button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );

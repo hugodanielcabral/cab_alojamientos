@@ -1,8 +1,9 @@
 import React from "react";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { useReservas } from "../../../../context/ReservasContext";
 
-export const MisReservasCard = ({ reservas, deleteReserva }) => {
+export const MisReservasCard = ({ reservas }) => {
   // Función para formatear la fecha
   const formatearFecha = (fechaISO) => {
     const fecha = new Date(fechaISO);
@@ -13,6 +14,8 @@ export const MisReservasCard = ({ reservas, deleteReserva }) => {
     };
     return fecha.toLocaleDateString("es-ES", opciones);
   };
+
+  const { deleteReserva } = useReservas();
 
   return (
     <div
@@ -68,9 +71,9 @@ export const MisReservasCard = ({ reservas, deleteReserva }) => {
           </div>
         ))
       ) : (
-        <div className="flex flex-col items-center justify-center col-span-2 mt-28">
+        <div className="flex flex-col items-center col-span-2 mt-52">
           <h1 className="mb-5 text-3xl font-bold">Aún no tienes reservas</h1>
-          <Link to="/propiedades" className="btn btn-primary">
+          <Link to="/propiedades" className=" btn btn-primary">
             Explora las propiedades
           </Link>
         </div>

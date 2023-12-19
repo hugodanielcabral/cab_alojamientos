@@ -4,9 +4,10 @@ import { Button, Input, Label } from "../../../UI";
 import { LiaEyeSolid, LiaEyeSlashSolid } from "react-icons/lia";
 import { useAuth } from "../../../../context/AuthContext";
 import Swal from "sweetalert2";
+import { useEffect } from "react";
 
 export const LoginForm = () => {
-  const { signin, errors } = useAuth();
+  const { signin, errors, setErrors } = useAuth();
   const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
@@ -53,9 +54,19 @@ export const LoginForm = () => {
 
   const getErrorMessage = (errors, path) => {
     if (!errors) return null;
+
     const error = errors.find((error) => error.path === path);
     return error ? error.msg : null;
   };
+
+  const resetErrors = () => {
+    setErrors(null);
+  };
+
+  useEffect(() => {
+    resetErrors();
+  }, []);
+
   return (
     <div className="h-full p-10 lg:px-28 mb-10 mt-10 bg-[#06657F] border shadow-black shadow-xl rounded-xl ">
       <h1 className="text-3xl text-center pointer-events-none">

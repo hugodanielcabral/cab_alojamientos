@@ -8,10 +8,18 @@ export const validateCreate = [
   check("tarjeta")
     .exists()
     .notEmpty()
+    .withMessage("La tarjeta es requerida")
     .isLength({ min: 19, max: 19 })
     .withMessage("Tarjeta inválida, recorda dejar espacios cada 4 dígitos"),
-  check("vencimiento").exists().notEmpty(),
-  check("cvv").exists().notEmpty().isLength({ min: 3, max: 4 }),
+  check("vencimiento")
+    .exists()
+    .notEmpty()
+    .withMessage("El vencimiento es requerido"),
+  check("cvv")
+    .exists()
+    .notEmpty()
+    .withMessage("El cvv es requerido")
+    .isLength({ min: 3, max: 4 }),
   (req, res, next) => {
     validateResult(req, res, next);
   },

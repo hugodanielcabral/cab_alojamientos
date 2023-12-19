@@ -1,14 +1,18 @@
 import { useAuth } from "../../../../context/AuthContext";
 import { Link } from "react-router-dom";
-
+import { Loading } from "../../../UI/index.js";
 export const ProfileDatos = () => {
   const { user } = useAuth();
+
+  if (!user) {
+    return <Loading />;
+  }
 
   return (
     <>
       <div className="grid gap-10 lg:grid-cols-3">
         <div className="flex flex-col items-center justify-center col-span-3 lg:col-span-1">
-          <div className="w-full p-3 mt-5 border shadow-xl bg-base-100 card lg:w-96 border-base-500 shadow-black lg:mt-0">
+          <div className="w-full p-3 mt-5 border shadow-xl bg-base-100 card md:w-72 lg:w-96 border-base-500 shadow-black lg:mt-0">
             <div className="justify-center avatar">
               <div className="w-24 rounded-full">
                 <img src={user.avatar} alt={`Avatar de ${user.name}`} />
@@ -29,7 +33,7 @@ export const ProfileDatos = () => {
           <div className="flex flex-col w-full lg:flex-row">
             <Link
               to="/mis-reservas"
-              className="w-full shadow-xl card lg:w-96 bg-base-100 image-full shadow-black"
+              className="w-full shadow-xl card md:w-72 lg:w-96 bg-base-100 image-full shadow-black"
             >
               <figure>
                 <img
@@ -46,7 +50,7 @@ export const ProfileDatos = () => {
             <div className="my-4 divider lg:divider-horizontal lg:my-0 divider-secondary"></div>
             <Link
               to={"/mis-propiedades"}
-              className="w-full mb-5 shadow-xl card lg:w-96 bg-base-100 image-full shadow-black lg:mb-0"
+              className="w-full mb-5 shadow-xl card md:w-72 lg:w-96 bg-base-100 image-full shadow-black lg:mb-0"
             >
               <figure>
                 <img

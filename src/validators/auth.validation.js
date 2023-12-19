@@ -1,5 +1,6 @@
 import { check } from "express-validator";
 import { validateResult } from "../libs/validationResult.js";
+import pool from "../db.js";
 
 export const validateSignup = [
   check("nombre")
@@ -12,7 +13,16 @@ export const validateSignup = [
     .notEmpty()
     .withMessage("El correo es requerido")
     .isEmail()
-    .withMessage("Email inválido"),
+    .withMessage("Email inválido")
+    .custom(async (value) => {
+      const result = await pool.query(
+        "SELECT * FROM usuarios WHERE correo = $1",
+        [value]
+      );
+      if (result.rowCount > 0) {
+        throw new Error("El correo ya esta registrado");
+      }
+    }),
   check("contrasena")
     .exists()
     .notEmpty()

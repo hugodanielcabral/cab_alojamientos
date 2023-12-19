@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import { GoPencil, GoTrash } from "react-icons/go";
 import Swal from "sweetalert2";
 
 export const MisPropiedadesCard = ({ propiedadesByUser, deletePropiedad }) => {
@@ -28,14 +29,14 @@ export const MisPropiedadesCard = ({ propiedadesByUser, deletePropiedad }) => {
               <h2 className="text-lg font-bold">{el.nombre}</h2>
               <p>{`${el.provincia}, ${el.localidad}`}</p>
               <p>${el.precio} por noche</p>
-              <div className="mt-4">
+              <div className="flex justify-center gap-4 mt-4">
                 <button
-                  className="btn btn-primary"
+                  className="btn bg-accent"
                   onClick={() =>
                     navigate(`/registro-propiedad/${el.propiedad_id}/edit`)
                   }
                 >
-                  Editar
+                  <GoPencil size={25} className="text-white" />
                 </button>
                 <button
                   className="btn btn-error"
@@ -75,7 +76,7 @@ export const MisPropiedadesCard = ({ propiedadesByUser, deletePropiedad }) => {
                       })
                   }
                 >
-                  Eliminar
+                  <GoTrash size={25} className="text-white" />
                 </button>
               </div>
             </div>
