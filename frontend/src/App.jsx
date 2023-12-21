@@ -18,6 +18,7 @@ import { MisReservasPage } from "./pages/MisReservasPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { DashboardPage } from "./pages/DashboardPage";
 import { DashboardUser } from "./components/Dashboard/User/DashboardUser";
+import { ReservasHistorial } from "./components/Reservas/Historial/ReservasHistorial";
 
 export const App = () => {
   const { user } = useAuth();
@@ -65,6 +66,10 @@ export const App = () => {
               <Route path="/reservas/:id" element={<ReservaPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/mis-reservas" element={<MisReservasPage />} />
+              <Route
+                path="/historial-reservas/:id"
+                element={<ReservasHistorial />}
+              />
 
               <Route
                 element={

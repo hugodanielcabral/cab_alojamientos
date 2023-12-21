@@ -95,6 +95,28 @@ export const getPropiedadesByPrecio = async (req, res) => {
   }
 };
 
+export const getHistorialReservas = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await pool.query(
+      "SELECT reserva_id, fecha_inicio, fecha_fin, usuarios.nombre AS nombre_usuario, usuarios.correo, propiedades.nombre AS nombre_propiedad, propiedades.usuario_id AS propietario_id, usuarios.usuario_id, propiedades.propiedad_id FROM reservas INNER JOIN usuarios ON reservas.usuario_id = usuarios.usuario_id INNER JOIN propiedades ON reservas.propiedad_id = propiedades.propiedad_id WHERE reservas.propiedad_id = $1",
+      [id]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({
+        message: "No hay reservas",
+      });
+    }
+    res.json(result.rows);
+  } catch (error) {
+    return res.status(500).json({
+      message: "Ocurrio un error",
+      error: error.message,
+    });
+  }
+};
+
 export const createPropiedad = async (req, res) => {
   const {
     nombre,

@@ -114,7 +114,7 @@ export const RegisterForm = () => {
             <Button
               className={
                 errors
-                  ? "absolute bottom-23 right-0 flex items-center pr-3 text-2xl text-white"
+                  ? "absolute bottom-10 right-0 flex items-center pr-3 text-2xl text-white"
                   : "absolute inset-y-0 right-0 flex items-center pr-3 text-2xl text-white"
               }
               type="button"

@@ -51,7 +51,7 @@ export const PreviewSidebar = ({
                   })
                 }
               >
-                No puedes reservar una propiedad que creas!
+                No puedes reservar tu propia propiedad
               </Button>
             ) : (
               <Button

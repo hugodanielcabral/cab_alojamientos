@@ -6,6 +6,7 @@ import {
   deletePropiedad,
   getPropiedad,
   getPropiedadByUser,
+  getHistorialReservas,
 } from "../controllers/propiedades.controller.js";
 import { isAuth } from "../middlewares/auth.middleware.js";
 import {
@@ -19,6 +20,8 @@ router.get("/propiedades", getPropiedades);
 router.get("/propiedades/:id", isAuth, getPropiedad);
 
 router.get("/usuarios/propiedades/:id", isAuth, getPropiedadByUser);
+
+router.get("/historial_reservas/:id", isAuth, getHistorialReservas);
 
 router.post("/propiedades", isAuth, validateCreate, createPropiedad);
 

@@ -46,6 +46,16 @@ export const PropiedadesProvider = ({ children }) => {
     }
   };
 
+  const getHistorialReservas = async (id) => {
+    try {
+      const response = await axios.get(`/historial_reservas/${id}`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      setErrors(error.response.data.errors);
+    }
+  };
+
   const createPropiedad = async (propiedad) => {
     try {
       const response = await axios.post("/propiedades", propiedad);
@@ -93,6 +103,7 @@ export const PropiedadesProvider = ({ children }) => {
         errors,
         propiedades,
         setErrors,
+        getHistorialReservas,
       }}
     >
       {children}

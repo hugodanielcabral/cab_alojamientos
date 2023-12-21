@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { GoPencil, GoTrash } from "react-icons/go";
+import { FaHistory } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 export const MisPropiedadesCard = ({ propiedadesByUser, deletePropiedad }) => {
@@ -77,6 +78,14 @@ export const MisPropiedadesCard = ({ propiedadesByUser, deletePropiedad }) => {
                   }
                 >
                   <GoTrash size={25} className="text-white" />
+                </button>
+                <button>
+                  <Link
+                    to={`/historial-reservas/${el.propiedad_id}`}
+                    className="btn btn-primary"
+                  >
+                    <FaHistory size={25} className="text-white" />
+                  </Link>
                 </button>
               </div>
             </div>
