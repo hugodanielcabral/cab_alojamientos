@@ -55,17 +55,15 @@ export const signin = async (req, res) => {
 };
 
 export const signup = async (req, res) => {
-  const { nombre, correo, contrasena, pais, rol } = req.body;
-  console.log(req.body);
-  console.log(nombre, correo, contrasena, pais, rol);
+  const { nombre, correo, contrasena, pais, rol, telefono } = req.body;
 
   try {
     const hashedContrasena = await bcrypt.hash(contrasena, 10);
     const gravatar = `https://gravatar.com/avatar/${md5(correo)}?d=identicon`;
 
     const result = await pool.query(
-      "INSERT INTO usuarios ( nombre, correo, contrasena, pais, rol, avatar, activo) VALUES ($1, $2, $3, $4, $5, $6, true) RETURNING *",
-      [nombre, correo, hashedContrasena, pais, rol, gravatar]
+      "INSERT INTO usuarios ( nombre, correo, contrasena, pais, rol, avatar, activo, telefono) VALUES ($1, $2, $3, $4, $5, $6, true, $7) RETURNING *",
+      [nombre, correo, hashedContrasena, pais, rol, gravatar, telefono]
     );
 
     const token = await createAccessToken({

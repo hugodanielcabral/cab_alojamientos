@@ -27,6 +27,8 @@ export const DashboardUserBuscador = ({ users, handleCheckboxChange }) => {
               <p>ID: ${user.usuario_id}</p>
               <p>Correo: ${user.correo}</p>
               <p>Rol: ${user.rol}</p>
+              <p>Pais: ${user.pais}</p>
+              <p>Telefono: ${user.telefono}</p>
               <p>Estado: ${user.activo ? "Activo" : "Inactivo"}</p>
               `,
         showConfirmButton: true,

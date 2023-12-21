@@ -36,6 +36,14 @@ export const validateSignup = [
     .withMessage("El país es requerido")
     .isLength({ min: 1, max: 255 }),
   check("rol").exists().notEmpty().isLength({ min: 1, max: 255 }),
+  check("telefono")
+    .exists()
+    .notEmpty()
+    .withMessage("El telefono es requerido")
+    .isLength({ min: 11, max: 11 })
+    .withMessage("El telefono debe tener 11 caracteres")
+    .isInt()
+    .withMessage("El telefono debe ser un numero"),
   (req, res, next) => {
     validateResult(req, res, next);
   },

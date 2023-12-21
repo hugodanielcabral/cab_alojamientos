@@ -16,6 +16,7 @@ export const RegisterForm = () => {
     contrasena: "",
     pais: "",
     rol: "CLIENTE",
+    telefono: "",
   });
   const [showContrasena, setShowContrasena] = useState(false);
 
@@ -35,6 +36,7 @@ export const RegisterForm = () => {
         contrasena: formValues.contrasena,
         pais: formValues.pais,
         rol: formValues.rol,
+        telefono: formValues.telefono,
       };
       const response = await signup(data);
       if (response) {
@@ -153,6 +155,20 @@ export const RegisterForm = () => {
           </Select>
           <p className="mt-3 text-sm font-bold text-center text-red-500">
             {getErrorMessage(errors, "pais")}
+          </p>
+        </Label>
+        <Label>
+          <div className="label">
+            <span className="text-lg text-white label-text">Telefono</span>
+          </div>
+          <Input
+            name="telefono"
+            id="telefono"
+            onChange={handleChange}
+            value={formValues.telefono}
+          />
+          <p className="mt-3 text-sm font-bold text-center text-red-500">
+            {getErrorMessage(errors, "telefono")}
           </p>
         </Label>
         <Button

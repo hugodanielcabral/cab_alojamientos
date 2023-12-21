@@ -33,6 +33,7 @@ export const DashboardTable = ({
             <th>Correo</th>
             <th>Pais</th>
             <th>Rol</th>
+            <th>Telefono</th>
             <th>Usuario ID</th>
             <th>Estado</th>
             <th>Activar/Desactivar</th>
@@ -46,6 +47,7 @@ export const DashboardTable = ({
               <td>{user.correo}</td>
               <td>{user.pais}</td>
               <td>{user.rol}</td>
+              <td>{user.telefono}</td>
               <td>{user.usuario_id}</td>
               <td>{user.activo ? "Activo" : "Inactivo"}</td>
               <td>

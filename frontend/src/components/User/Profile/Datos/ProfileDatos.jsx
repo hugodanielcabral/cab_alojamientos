@@ -1,6 +1,7 @@
 import { useAuth } from "../../../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { Loading } from "../../../UI/index.js";
+
 export const ProfileDatos = () => {
   const { user } = useAuth();
 
@@ -23,6 +24,9 @@ export const ProfileDatos = () => {
                 {user.nombre}
               </h2>
               <p className="text-center text-white">{user.correo}</p>
+              <p className="text-center text-white">
+                Telefono: {user.telefono}
+              </p>
               <p className="text-center text-secondary">{user.rol}</p>
               <div className="justify-end card-actions"></div>
             </div>

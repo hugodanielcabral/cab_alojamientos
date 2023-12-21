@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, DatePickerUI } from "../../../UI/index.js";
 import axios from "../../../../api/axios.js";
 import Swal from "sweetalert2";
+import { CiMail, CiPhone } from "react-icons/ci";
 export const PreviewSidebar = ({
   propiedad,
   startDate,
@@ -35,6 +36,29 @@ export const PreviewSidebar = ({
             <p className="text-xl font-bold text-center">
               Publicado por: {usuario && usuario.nombre}
             </p>
+            <div className="">
+              {usuario && (
+                <div className="flex gap-5 justify-evenly">
+                  <Button className="btn btn-secondary">
+                    <a
+                      href={`mailto:${usuario.correo}`}
+                      style={{ color: "inherit", textDecoration: "inherit" }}
+                    >
+                      <CiMail size={30} />
+                    </a>
+                  </Button>
+
+                  <Button className="btn btn-secondary">
+                    <a
+                      href={`tel:${usuario.telefono}`}
+                      style={{ color: "inherit", textDecoration: "inherit" }}
+                    >
+                      <CiPhone size={30} />
+                    </a>
+                  </Button>
+                </div>
+              )}
+            </div>
             <h1 className="text-xl font-bold md:text-3xl card-title text-primary">
               ${propiedad.precio} USD por noche
             </h1>
