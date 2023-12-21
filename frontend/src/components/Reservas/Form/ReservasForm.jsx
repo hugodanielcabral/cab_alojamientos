@@ -43,7 +43,6 @@ export const ReservasForm = ({ startDate, endDate }) => {
     e.preventDefault();
     try {
       const response = await createReserva(formValues);
-      console.log(response);
       if (response) {
         Swal.fire({
           position: "center",
@@ -115,6 +114,12 @@ export const ReservasForm = ({ startDate, endDate }) => {
       <div className="col-span-2">
         <div className="shadow-xl card bg-base-100 shadow-black h-[40rem] w-[23rem] justify-center items-center md:w-[40rem] mx-auto mb-5">
           <form onSubmit={handleSubmit} className="justify-center card-body">
+            <h3 className="text-2xl font-bold text-center text-secondary">
+              Total a pagar: $
+              {Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) *
+                propiedad.precio}
+              USD
+            </h3>
             <h3 className="mt-5 text-2xl font-bold text-center text-secondary">
               Información de la tarjeta
             </h3>

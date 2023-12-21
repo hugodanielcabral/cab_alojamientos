@@ -47,7 +47,7 @@ export const ReservasProvider = ({ children }) => {
   const deleteReserva = async (id) => {
     try {
       await axios.delete(`/reservas/${id}`);
-      setReservas(reservas.filter((reserva) => reserva.id !== id));
+      setReservas(reservas.filter((reserva) => reserva.reserva_id !== id));
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +55,7 @@ export const ReservasProvider = ({ children }) => {
 
   useEffect(() => {
     getReservas();
-  }, [reservas]);
+  }, []);
 
   return (
     <ReservaContext.Provider

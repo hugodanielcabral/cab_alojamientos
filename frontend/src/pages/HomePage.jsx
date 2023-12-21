@@ -52,11 +52,13 @@ export const HomePage = () => {
         </div>
       </div>
       <div className="mt-5 text-3xl text-center ">
-        <h2>Descubre tu próximo nuevo destino</h2>
+        <h2>
+          ¡Descubre los mejores alojamientos! &#128293; &#128293; &#128293;
+        </h2>
         <HomeCard propiedades={propiedades} isOnline={isOnline} />
         <div className="divider"></div>
         <h2 className="mt-10 text-3xl text-center text-secondary">
-          Mira lo que opinan nuestros clientes!
+          ¡Mira lo que opinan nuestros clientes! &#128525;
         </h2>
         <Testimonios />
       </div>

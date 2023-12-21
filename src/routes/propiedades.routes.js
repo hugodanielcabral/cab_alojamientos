@@ -19,6 +19,7 @@ router.get("/propiedades", getPropiedades);
 router.get("/propiedades/:id", isAuth, getPropiedad);
 
 router.get("/usuarios/propiedades/:id", isAuth, getPropiedadByUser);
+
 router.post("/propiedades", isAuth, validateCreate, createPropiedad);
 
 router.put("/propiedades/:id", isAuth, validateUpdate, updatePropiedad);

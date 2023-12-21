@@ -52,6 +52,12 @@ export const AuthProvider = ({ children }) => {
             title: "Tu usuario fue bloqueado",
             text: "Por favor comunicate con el administrador",
           });
+        } else if (error.response.status === 401) {
+          Swal.fire({
+            icon: "error",
+            title: "Usuario o contraseña incorrectos",
+            text: "Por favor verifica tus datos",
+          });
         }
         console.log(error.response.headers);
         setErrors(error.response.data.errors);

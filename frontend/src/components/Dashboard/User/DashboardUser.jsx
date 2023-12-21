@@ -10,8 +10,6 @@ export const DashboardUser = () => {
     totalPages: 0,
   });
 
-  console.log(users);
-
   useEffect(() => {
     const getUsers = async (page = 1) => {
       try {

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { useReservas } from "../../../../context/ReservasContext";
 
 export const MisReservasCard = ({ reservas }) => {
+  const { deleteReserva } = useReservas();
+
   // Función para formatear la fecha
   const formatearFecha = (fechaISO) => {
     const fecha = new Date(fechaISO);
@@ -14,8 +16,6 @@ export const MisReservasCard = ({ reservas }) => {
     };
     return fecha.toLocaleDateString("es-ES", opciones);
   };
-
-  const { deleteReserva } = useReservas();
 
   return (
     <div

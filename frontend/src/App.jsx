@@ -65,6 +65,7 @@ export const App = () => {
               <Route path="/reservas/:id" element={<ReservaPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/mis-reservas" element={<MisReservasPage />} />
+
               <Route
                 element={
                   <ProtectedRoute

@@ -10,7 +10,7 @@ export const Footer = () => {
           className="w-32 mx-auto rounded-full shadow-2xl shadow-black "
         />
         <p className="text-secondary">DonC Alojamientos</p>
-        <p>Brindando servicios en el mundo desde 2023</p>
+        <p>Brindando servicios en Argentina desde 2023 🇦🇷</p>
       </aside>
       <nav>
         <header className="footer-title">Mis redes</header>
