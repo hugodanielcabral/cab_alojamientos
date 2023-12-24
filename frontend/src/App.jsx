@@ -25,7 +25,7 @@ export const App = () => {
   // Cuando recargo la página, se reseteaba el isAuth del useAuth, lo que ocasionaba que se
   // redireccione otra vez las rutas protegidas por el usuario. La solución fue
   // guardar el isAuth en el localStorage.
-  const isAuth = localStorage.getItem("isAuth");
+  const isAuth = localStorage.getItem("online");
   const userLS = JSON.parse(localStorage.getItem("user"));
   return (
     <Layout>
