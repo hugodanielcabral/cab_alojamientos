@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 // CORS
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://donc-alojamientos.onrender.com",
     credentials: true,
   })
 );
