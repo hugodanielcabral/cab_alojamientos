@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "../api/axios.js";
 import { Testimonios } from "../components/Home/Testimonios/Testimonios.jsx";
 import { HomeCard } from "../components/Home/Card/HomeCard.jsx";
+import { Loading } from "../components/UI/Loading.jsx";
 
 const img = [
   "url(https://images.unsplash.com/photo-1499678329028-101435549a4e)",
@@ -55,7 +56,12 @@ export const HomePage = () => {
         <h2>
           ¡Descubre los mejores alojamientos! &#128293; &#128293; &#128293;
         </h2>
-        <HomeCard propiedades={propiedades} isOnline={isOnline} />
+        {propiedades.length === 0 ? (
+          <Loading className="mx-auto" />
+        ) : (
+          <HomeCard propiedades={propiedades} isOnline={isOnline} />
+        )}
+
         <div className="divider"></div>
         <h2 className="mt-10 text-3xl text-center text-secondary">
           ¡Mira lo que opinan nuestros clientes! &#128525;
